@@ -23,8 +23,8 @@
         <!-- Barre supérieure pour la sélection de la langue -->
         <Border DockPanel.Dock="Top" Width="auto" Height="70" HorizontalAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="LightGray">
             <StackPanel Orientation="Horizontal">
-                <Label  Content="BORNE DE PAYEMENT" Foreground="Blue"  FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <TextBlock Text="Langue :" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <Label x:Name="label_PayementStation" Foreground="Blue"  FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label x:Name="label_Language" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <ComboBox x:Name="languageComboBox" Width="100" Margin="0,0,20,0">
                     <ComboBoxItem Content="Français" Tag="fr"/>
                     <ComboBoxItem Content="English" Tag="en"/>
@@ -41,11 +41,9 @@
 
             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Width="Auto"  Height="75">
 
-                <!-- Titre -->
-                <TextBlock Text="Mode Visiteur" FontSize="32" FontWeight="Bold" TextAlignment="Center" />
-
                 <!-- Instructions pour scanner le ticket -->
-                <TextBlock Text="Veuillez scanner votre ticket de stationnement" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+                <TextBlock x:Name="label_ScanningInstructions" TextWrapping="Wrap"
+                           FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
 
             </StackPanel>
 
