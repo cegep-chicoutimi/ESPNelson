@@ -5,24 +5,38 @@ using StationnementAPI.Models;
 
 namespace StationnementAPI.Controllers
 {
+    /// <summary>
+    /// Contrôleur pour gérer les opérations liées aux tickets de stationnement.
+    /// </summary>
     [Route("api/tickets")]
     [ApiController]
     public class TicketController : ControllerBase
     {
         private readonly StationnementDbContext _context;
 
+        /// <summary>
+        /// Initialise une nouvelle instance de la classe <see cref="TicketController"/>.
+        /// </summary>
+        /// <param name="context">Le contexte de la base de données.</param>
         public TicketController(StationnementDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Génère un ID unique pour un ticket.
+        /// </summary>
+        /// <returns>Un ID de ticket sous forme de chaîne de caractères.</returns>
         private string GenerateTicketId()
         {
             string guid = Guid.NewGuid().ToString("N").ToUpper(); // Supprime les tirets et met en majuscule
             return guid.Substring(0, 12); // Prend les 12 premiers caractères
         }
 
-
+        /// <summary>
+        /// Génère un nouveau ticket avec un ID unique et l'heure d'arrivée actuelle.
+        /// </summary>
+        /// <returns>Un résultat HTTP 201 (Created) avec les détails du ticket généré.</returns>
         [HttpPost("generer")]
         public async Task<ActionResult<Ticket>> GenererTicket()
         {
@@ -41,6 +55,11 @@ namespace StationnementAPI.Controllers
             return CreatedAtAction(nameof(GetTicket), new { id = ticket.Id }, ticket);
         }
 
+
+        /// <summary>
+        /// Récupère tous les tickets disponibles dans la base de données.
+        /// </summary>
+        /// <returns>Une liste de tickets ou un message d'erreur si aucun ticket n'est trouvé.</returns>
         [HttpGet]
         public async Task<ActionResult<List<Ticket>>> GetAllTickets()
         {
@@ -117,8 +136,6 @@ namespace StationnementAPI.Controllers
 
             return Ok(response);
         }
-
-
     }
 
 

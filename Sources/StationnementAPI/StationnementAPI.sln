@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationnementAPI", "StationnementAPI\StationnementAPI.csproj", "{1DAB1303-3539-4AC1-A634-059895D2122D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationnementAPI", "StationnementAPI\StationnementAPI.csproj", "{1DAB1303-3539-4AC1-A634-059895D2122D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStationnementAPI", "TestStationnementAPI\TestStationnementAPI.csproj", "{B43E76C2-7079-4967-BDBB-FF2125589BAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{1DAB1303-3539-4AC1-A634-059895D2122D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DAB1303-3539-4AC1-A634-059895D2122D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DAB1303-3539-4AC1-A634-059895D2122D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B43E76C2-7079-4967-BDBB-FF2125589BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B43E76C2-7079-4967-BDBB-FF2125589BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B43E76C2-7079-4967-BDBB-FF2125589BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B43E76C2-7079-4967-BDBB-FF2125589BAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {706BE5D8-338A-4A74-8557-2D649A239339}
 	EndGlobalSection
 EndGlobal

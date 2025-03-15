@@ -12,7 +12,7 @@ namespace StationnementAPI.Models
         public string Id { get; set; } = Guid.NewGuid().ToString(); //Génération automatique de l'ID unique
 
         [Required]
-        [Column(TypeName = "datetime(6)")]
+        [Column(TypeName = "datetime")]
         [JsonProperty("TempsArrive")]
         public DateTime TempsArrive { get; set; }
 

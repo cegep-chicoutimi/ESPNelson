@@ -5,22 +5,34 @@ using StationnementAPI.Models;
 using StationnementAPI.Models.ModelsDTO;
 using System;
 using System.Threading.Tasks;
-using StationnementAPI.Models.ModelsDTO;
 using System.Net.Sockets;
 
 namespace StationnementAPI.Controllers
 {
+    /// <summary>
+    /// Contrôleur pour gérer les opérations liées aux abonnements de stationnement.
+    /// </summary>
     [Route("api/abonnements")]
     [ApiController]
     public class AbonnementController : ControllerBase
     {
         private readonly StationnementDbContext _context;
 
+        /// <summary>
+        /// Initialise une nouvelle instance de la classe <see cref="AbonnementController"/>.
+        /// </summary>
+        /// <param name="context">Le contexte de la base de données.</param>
         public AbonnementController(StationnementDbContext context)
         {
             _context = context;
         }
 
+
+        /// <summary>
+        /// Souscrit un nouvel abonnement en utilisant les informations fournies dans le DTO.
+        /// </summary>
+        /// <param name="paiementDto">Les informations de paiement, y compris l'ID du ticket et l'email de l'utilisateur.</param>
+        /// <returns>Un résultat HTTP indiquant le succès ou l'échec de la souscription.</returns>
         [HttpPost("souscrire")]
         public async Task<ActionResult> SouscrireAbonnement([FromBody] PaiementDto paiementDto)
         {
@@ -40,8 +52,6 @@ namespace StationnementAPI.Controllers
             if (existingUser != null)
                 return Conflict("Cet email est déjà associé à un abonné.");
 
-            
-
             var utilisateur = new Utilisateur
             {
                 NomUtilisateur = paiementDto.Email.Split('@')[0],
@@ -50,13 +60,11 @@ namespace StationnementAPI.Controllers
                 Role = "abonne"
             };
             _context.Utilisateurs.Add(utilisateur);
-            await _context.SaveChangesAsync(); // 🔥 Sauvegarder pour générer l'Id !
+            await _context.SaveChangesAsync();
 
-            // Maintenant l'Id est généré, on peut créer l'abonnement
-
-                // Déterminer la durée et le montant en fonction du type d'abonnement
+            // Déterminer la durée et le montant en fonction du type d'abonnement
             int dureeJours = paiementDto.TypeAbonnement.ToLower() == "hebdomadaire" ? 7 : 30;
-            
+
             var abonnement = new Abonnement
             {
                 Id = GenerateAbonnmentId(),
@@ -66,20 +74,20 @@ namespace StationnementAPI.Controllers
                 Type = paiementDto.TypeAbonnement.ToLower()
             };
             _context.Abonnements.Add(abonnement);
-            await _context.SaveChangesAsync(); // 🔥 Sauvegarder pour générer l'Id !
+            await _context.SaveChangesAsync();
 
-            // Maintenant l'Id est généré, on peut créer l'abonnement
-           
             decimal montant = paiementDto.TypeAbonnement.ToLower() == "mensuel" ? 50 : 15;
 
             var paiement = paiementDto.DtoToPaiement(montant, abonnement.Id);
-            _context.Paiements.Add(paiement);
-            ticket.EstConverti = true;  //le ticket cosidéré comme converti en abonnement
+            ticket.EstConverti = true;
 
+
+            _context.Paiements.Add(paiement);
+            await _context.SaveChangesAsync();
 
             try
             {
-                await _context.SaveChangesAsync();  //Dernier pour enregistrer le paiement 
+                await _context.SaveChangesAsync();  
             }
             catch (DbUpdateException ex)
             {
@@ -105,7 +113,11 @@ namespace StationnementAPI.Controllers
         }
 
 
-       
+        /// <summary>
+        /// Récupère les détails d'un abonnement actif en utilisant son ID.
+        /// </summary>
+        /// <param name="id">L'ID de l'abonnement à récupérer.</param>
+        /// <returns>Un objet contenant les détails de l'abonnement ou un message d'erreur si l'abonnement n'est pas actif.</returns>
         [HttpGet("actifs/{id}")]
         public async Task<ActionResult<object>> GetAbonnement(string id)
         {
@@ -127,6 +139,10 @@ namespace StationnementAPI.Controllers
             });
         }
 
+        /// <summary>
+        /// Génère un ID unique pour un abonnement.
+        /// </summary>
+        /// <returns>Un ID d'abonnement sous forme de chaîne de caractères.</returns>
         private string GenerateAbonnmentId()
         {
             string guid = Guid.NewGuid().ToString("N").ToUpper(); // Supprime les tirets et met en majuscule

@@ -8,24 +8,34 @@ using System.Threading.Tasks;
 
 namespace StationnementAPI.Controllers
 {
+    /// <summary>
+    /// Contrôleur pour gérer les opérations liées aux paiements des tickets de stationnement.
+    /// </summary>
     [Route("api/paiements")]
     [ApiController]
     public class PaiementController : ControllerBase
     {
         private readonly StationnementDbContext _context;
 
+        /// <summary>
+        /// Initialise une nouvelle instance de la classe <see cref="PaiementController"/>.
+        /// </summary>
+        /// <param name="context">Le contexte de la base de données.</param>
         public PaiementController(StationnementDbContext context)
         {
             _context = context;
         }
 
+
         /// <summary>
-        /// Calculer le montant du paiement sans l'effectuer
+        /// Calcule le montant du paiement pour un ticket donné sans effectuer le paiement.
         /// </summary>
+        /// <param name="ticketId">L'ID du ticket pour lequel calculer le montant.</param>
+        /// <returns>Un objet contenant les détails du calcul du montant, y compris les taxes et la durée de stationnement.</returns>
         [HttpGet("calculer-montant/{ticketId}")]
         public async Task<ActionResult<object>> CalculerMontantTicket(string ticketId)
         {
-            // Rechercher le ticket dans la base de données
+            // Recherche le ticket dans la base de données
             var ticket = await _context.Tickets.FindAsync(ticketId);
             if (ticket == null)
             {
@@ -37,8 +47,8 @@ namespace StationnementAPI.Controllers
             }
 
 
-            // Déterminer la durée de stationnement
-            var tempsSortie = DateTime.Now; // Simulation du temps de sortie
+            //la durée de stationnement
+            var tempsSortie = DateTime.Now; 
             var dureeStationnement = (tempsSortie - ticket.TempsArrive).TotalHours;
 
             // Cas spécial : dépassement des 24h
@@ -53,7 +63,7 @@ namespace StationnementAPI.Controllers
                 });
             }
 
-            // Vérifier la tarification applicable
+            // Vérifie la tarification applicable
             var tarification = await _context.Tarifications
                 .FirstOrDefaultAsync(t => dureeStationnement >= t.DureeMin && dureeStationnement <= t.DureeMax);
 
@@ -67,7 +77,7 @@ namespace StationnementAPI.Controllers
             }
 
 
-            // Récupérer les taxes les plus récentes
+            //les taxes les plus récentes
             var configuration = await _context.Configurations
                 .OrderByDescending(c => c.DateModification)
                 .FirstOrDefaultAsync();
@@ -80,12 +90,12 @@ namespace StationnementAPI.Controllers
                 });
             }
 
-            // Calculer le montant total avec taxes
+            // Calcule le montant total avec taxes
             decimal montantTotal = tarification.Prix;
             decimal taxes = montantTotal * (configuration.TaxeFederal + configuration.TaxeProvincial) / 100;
-            decimal montantAvecTaxes = montantTotal + taxes;
+            decimal montantAvecTaxes = Math.Round(montantTotal + taxes, 2, MidpointRounding.AwayFromZero); 
 
-            // Retourner les informations de calcul du montant
+            // les informations de calcul du montant
             return Ok(new
             {
                 Montant = montantTotal,
@@ -108,8 +118,10 @@ namespace StationnementAPI.Controllers
 
 
         /// <summary>
-        /// Effectuer le paiement d'un ticket
+        /// Effectue le paiement d'un ticket en utilisant les informations fournies dans le DTO.
         /// </summary>
+        /// <param name="paiementDto">Les informations de paiement, y compris l'ID du ticket.</param>
+        /// <returns>Un résultat HTTP indiquant le succès ou l'échec du paiement.</returns>
         [HttpPost("payer-ticket")]
         public async Task<ActionResult> PayerTicket([FromBody] PaiementDto paiementDto)
         {
@@ -126,7 +138,7 @@ namespace StationnementAPI.Controllers
             if (ticket.EstConverti)
                 return BadRequest("Ce ticket a déjà été converti en abonnement.");
 
-            // Déterminer le montant du paiement en appelant la méthode
+            
             var montantResponse = await CalculerMontantTicket(ticket.Id);
             if (montantResponse.Result is BadRequestObjectResult || montantResponse.Result is NotFoundObjectResult)
                 return montantResponse.Result; // Retourne l'erreur appropriée
@@ -142,7 +154,7 @@ namespace StationnementAPI.Controllers
             int tarificationDureeMin = (int)montantResult.GetType().GetProperty("TarificationDureeMin")?.GetValue(montantResult);
             int tarificationDureeMax = (int)montantResult.GetType().GetProperty("TarificationDureeMax")?.GetValue(montantResult);
 
-            // Mettre à jour le statut du ticket et enregistrer le paiement
+            // Mets  jour le statut du ticket et enregistrer le paiement
             ticket.EstPaye = true;
             ticket.TempsSortie = DateTime.UtcNow;
 
