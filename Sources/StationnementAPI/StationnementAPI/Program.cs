@@ -6,6 +6,16 @@ using StationnementAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuration de Kestrel
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5001); // HTTP
+    serverOptions.ListenAnyIP(5000, listenOptions => // HTTPS
+    {
+        listenOptions.UseHttps();
+    });
+});
+
 // Add services to the container.
 
 // Configuration du DbContext avec options avancées
@@ -30,15 +40,18 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+string baseUrl = builder.Configuration["BaseURL"];
+
+app.UsePathBase(new PathString(baseUrl));
+
 // Ajout du middleware de sécurité API Key
 //app.UseMiddleware<ApiKeyMiddleware>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 

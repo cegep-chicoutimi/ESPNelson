@@ -32,7 +32,7 @@ namespace ESPNelson.Model
             {
                 APIClient = new HttpClient
                 {
-                    BaseAddress = new Uri("https://localhost:7185/api/")
+                    BaseAddress = new Uri("https://localhost:5000/api/")
                 };
                 APIClient.DefaultRequestHeaders.Accept.Clear();
 

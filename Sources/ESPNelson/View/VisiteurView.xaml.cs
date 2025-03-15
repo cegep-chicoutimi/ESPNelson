@@ -25,7 +25,6 @@ namespace ESPNelson.View
         public VisiteurView()
         {
             InitializeComponent();
-            this.DataContext = new VisiteurVM();
 
             LoadLabels();
 

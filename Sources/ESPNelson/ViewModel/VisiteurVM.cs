@@ -33,11 +33,12 @@ namespace ESPNelson.ViewModel
         [ObservableProperty]
         private BitmapImage barcodeImage;
 
-        public IRelayCommand GenerateNewTicketCommand { get; }
+        public IRelayCommand GenerateNewTicketCommand { get; set; }
         //public IRelayCommand DownloadTicketPDFCommand { get; }
 
         public VisiteurVM()
         {
+            Console.WriteLine("VisiteurVM initialisé.");
             GenerateNewTicketCommand = new RelayCommand(GenerateNewTicket);
         }
 
@@ -46,6 +47,7 @@ namespace ESPNelson.ViewModel
         /// </summary>
         private async void GenerateNewTicket()
         {
+            Console.WriteLine("GenerateNewTicket appelé.");
             var nouveauTicket = await TicketProcessor.GenerateTicketAsync();
             if (nouveauTicket != null)
             {
