@@ -40,7 +40,7 @@ namespace Administration.ViewModel
         [ObservableProperty]
         private string rapportInformations; // Propriété pour stocker les informations du rapport
 
-        private const string PdfSavePath = "Rapports";
+        //private const string PdfSavePath = "Rapports";
         private static readonly string LogoPath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName, "img", "logo_ciuss.jpg");
 
         public ICommand GenererRapportCommand { get; }
@@ -74,7 +74,12 @@ namespace Administration.ViewModel
             // Vérifier que les dates sont valides
             if (DateDebut > DateFin)
             {
-                MessageBox.Show("La date de début ne peut pas être postérieure à la date de fin.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                     Resource.StartDateAfterEndDate,
+                     Resource.ErrorTitle,
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Error
+                 );
                 return;
             }
 
@@ -120,7 +125,12 @@ namespace Administration.ViewModel
             // Vérifier que les dates sont valides
             if (DateDebut > DateFin)
             {
-                MessageBox.Show("La date de début ne peut pas être postérieure à la date de fin.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                        Resource.StartDateAfterEndDate,
+                        Resource.ErrorTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                 return;
             }
 
@@ -132,19 +142,12 @@ namespace Administration.ViewModel
                 rapport.RevenusParConfiguration, rapport.RevenusAbonnements);
         }
 
-        public Tarification GetTarificationApplicable(Ticket ticket)
-        {
-            if (ticket.TempsSortie == null)
-                throw new InvalidOperationException("Le ticket n'a pas de temps de sortie.");
-
-            TimeSpan dureeStationnement = ticket.TempsSortie.Value - ticket.TempsArrive;
-            double dureeEnHeures = dureeStationnement.TotalHours;
-
-            return _dbContext.Tarifications
-                .FirstOrDefault(t => dureeEnHeures >= t.DureeMin && dureeEnHeures <= t.DureeMax);
-        }
-
-
+        /// <summary>
+        /// ce code est en partie de moi avec l'aide de ChatGPT
+        /// </summary>
+        /// <param name="dateDebut"></param>
+        /// <param name="dateFin"></param>
+        /// <returns></returns>
         public (Dictionary<string, int> TicketsParTarification, Dictionary<string, decimal> RevenusParTarification, decimal TotalRevenus,
             List<(Configuration Config, decimal Revenus)> RevenusParConfiguration, decimal RevenusAbonnements)
             GenererRapportRevenus(DateTime dateDebut, DateTime dateFin)
@@ -216,6 +219,13 @@ namespace Administration.ViewModel
             return (ticketsParTarification, revenusParTarification, totalRevenus, revenusParConfiguration, revenusAbonnements);
         }
 
+
+        /// <summary>
+        /// ce code est en partie de moi avec l'aide de ChatGPT
+        /// </summary>
+        /// <param name="dateDebut"></param>
+        /// <param name="dateFin"></param>
+        /// <returns></returns>
         public void ExporterRapportEnPDF(Dictionary<string, int> ticketsParTarification, Dictionary<string, decimal> revenusParTarification, decimal totalRevenus,
      List<(Configuration Config, decimal Revenus)> revenusParConfiguration, decimal revenusAbonnements)
         {
@@ -350,8 +360,6 @@ namespace Administration.ViewModel
                 }
             }
         }
-
-
 
     }
        

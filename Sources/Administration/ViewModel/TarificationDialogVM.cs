@@ -1,4 +1,5 @@
 ﻿using Administration.Model;
+using Administration.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -25,13 +26,23 @@ namespace Administration.ViewModel
         {
             if (Tarification.Prix < 0 || Tarification.DureeMin < 0 || Tarification.DureeMax <= 0)
             {
-                MessageBox.Show("Veuillez remplir tous les champs correctement.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                          Resource.InvalidValues,
+                          Resource.ErrorTitle,
+                          MessageBoxButton.OK,
+                          MessageBoxImage.Error
+                      );
                 return;
             }
 
             if (Tarification.DureeMin >= Tarification.DureeMax)
             {
-                MessageBox.Show("La durée minimale doit être inférieure à la durée maximale.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                     Resource.MinDurationLessThanMax,
+                     Resource.ErrorTitle,
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Error
+                 );
                 return;
             }
 

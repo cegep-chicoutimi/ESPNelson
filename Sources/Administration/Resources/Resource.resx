@@ -256,6 +256,9 @@
   <data name="MaxCapacity" xml:space="preserve">
     <value>Capacité max</value>
   </data>
+  <data name="MinDurationLessThanMax" xml:space="preserve">
+    <value>La durée minimale doit être inférieure à la durée maximale.</value>
+  </data>
   <data name="MissingCredentials" xml:space="preserve">
     <value>Vous devez saisir un mot de passe et un nom d'utilisateur valide.</value>
   </data>
@@ -333,6 +336,9 @@
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start date</value>
+  </data>
+  <data name="StartDateAfterEndDate" xml:space="preserve">
+    <value>La date de début ne peut pas être postérieure à la date de fin.</value>
   </data>
   <data name="SubscriptionsOnly" xml:space="preserve">
     <value>Abonnements seulement</value>

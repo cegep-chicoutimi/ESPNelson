@@ -56,6 +56,7 @@ namespace Administration.ViewModel
             ChargerConfigurations();
         }
 
+
         #region utilisateurs
 
         /// <summary>
@@ -130,8 +131,6 @@ namespace Administration.ViewModel
             }
         }
 
-        
-
         /// <summary>
         /// Modifie l'utilisateur sélectionné après avoir affiché un dialogue de saisie.
         /// </summary>
@@ -152,7 +151,6 @@ namespace Administration.ViewModel
 
             ChargerUtilisateurs();
         }
-
 
         /// <summary>
         /// Supprime l'utilisateur sélectionné après confirmation.
@@ -190,6 +188,10 @@ namespace Administration.ViewModel
 
         #endregion
 
+
+
+        #region tarfifications
+
         /// <summary>
         /// Charge la liste des tarifications depuis la base de données.
         /// </summary>
@@ -210,6 +212,53 @@ namespace Administration.ViewModel
                 );
             }
         }
+
+        /// <summary>
+        /// Modifie la tarification sélectionnée après avoir affiché un dialogue de saisie.
+        /// </summary>
+        [RelayCommand]
+        private void ModifierTarification()
+        {
+            try
+            {
+                if (TarificationSelectionnee != null)
+                {
+                    if (AfficherDialogTarification(TarificationSelectionnee, false))
+                    {
+                        _dbContext.Tarifications.Update(TarificationSelectionnee);
+                        _dbContext.SaveChanges();
+                        ChargerTarifications();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        }
+
+        /// <summary>
+        /// Affiche un dialogue pour modifier ou ajouter une tarification.
+        /// </summary>
+        /// <param name="tarification">La tarification à modifier ou ajouter.</param>
+        /// <param name="estNouvelle">Indique si la tarification est nouvelle.</param>
+        /// <returns>True si l'utilisateur a confirmé, sinon False.</returns>
+        private bool AfficherDialogTarification(Tarification tarification, bool estNouvelle)
+        {
+            var dialog = new TarificationDialog(tarification, estNouvelle);
+            return dialog.ShowDialog() == true;
+        }
+
+
+        #endregion
+
+
 
         #region configurations
 
@@ -294,9 +343,6 @@ namespace Administration.ViewModel
             }
         }
 
-        #endregion
-
-
         /// <summary>
         /// Supprime la configuration sélectionnée après confirmation.
         /// </summary>
@@ -353,55 +399,8 @@ namespace Administration.ViewModel
             }
         }
 
-
-       
-
-
-       
-
-
-
-        /// <summary>
-        /// Modifie la tarification sélectionnée après avoir affiché un dialogue de saisie.
-        /// </summary>
-        [RelayCommand]
-        private void ModifierTarification()
-        {
-            try
-            {
-                if (TarificationSelectionnee != null)
-                {
-                    if (AfficherDialogTarification(TarificationSelectionnee, false))
-                    {
-                        _dbContext.Tarifications.Update(TarificationSelectionnee);
-                        _dbContext.SaveChanges();
-                        ChargerTarifications();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // En cas d'erreur, affiche un message d'erreur
-                MessageBox.Show(
-                    Resource.ErrorUnexpected + $" : {ex.Message}",
-                    Resource.ErrorUnexpected,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-            }
-        }
-
-        /// <summary>
-        /// Affiche un dialogue pour modifier ou ajouter une tarification.
-        /// </summary>
-        /// <param name="tarification">La tarification à modifier ou ajouter.</param>
-        /// <param name="estNouvelle">Indique si la tarification est nouvelle.</param>
-        /// <returns>True si l'utilisateur a confirmé, sinon False.</returns>
-        private bool AfficherDialogTarification(Tarification tarification, bool estNouvelle)
-        {
-            var dialog = new TarificationDialog(tarification, estNouvelle);
-            return dialog.ShowDialog() == true;
-        }
+        #endregion
+        
     }
 }
 
