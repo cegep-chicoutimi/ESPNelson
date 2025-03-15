@@ -1,4 +1,5 @@
-﻿using Administration.ViewModel;
+﻿using Administration.Resources;
+using Administration.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,18 @@ namespace Administration.View
 
             // On passe la méthode pour fermer la fenêtre à la VM
             vm.CloseDialogAction = CloseDialogWithResult;
+
+            LoadLabels();
+        }
+
+        /// <summary>
+        /// Charge les labels et met à jour leur texte en fonction de la langue sélectionnée.
+        /// </summary>
+        public void LoadLabels()
+        {
+            label_ChangeYourPassword.Content = Resource.ChangeYourPassword;
+            label_Save.Content = Resource.Save;
+            label_Cancel.Content = Resource.Cancel;
         }
 
         private void CloseDialogWithResult(bool result)
@@ -51,6 +64,11 @@ namespace Administration.View
         {
             if (DataContext is UtilisateurDialogVM vm)
                 vm.ConfirmPassword = ((PasswordBox)sender).SecurePassword;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

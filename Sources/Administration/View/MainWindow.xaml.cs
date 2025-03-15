@@ -13,13 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Administration.ViewModel;
 using System.Windows.Media.Animation;
 using Microsoft.EntityFrameworkCore;
 using Administration.Resources;
 using System.Configuration;
 using System.Globalization;
 using System.ComponentModel;
+using Administration.Model;
 
 namespace Administration.View
 {
@@ -55,7 +55,10 @@ namespace Administration.View
         private Login login;
         private TableauBordView tableauBordView;
         private GestionView gestionView;    
-        private RapportsView rapportsView;  
+        private RapportsView rapportsView;
+        TarificationDialog tarificationDialog;
+        UtilisateurDialog utilisateurDialog;
+        ConfigurationDialog configurationDialog;
 
         public NavigationService NavigationService { get; private set; }
 
@@ -69,24 +72,40 @@ namespace Administration.View
             login.DataContext = new LoginVM();
 
             tableauBordView = new TableauBordView();
-            tableauBordView.DataContext = new TableauBordView();
-
-            gestionView = new GestionView();
-            gestionView.DataContext = new GestionView();
+            tableauBordView.DataContext = new TableauBordVM();
 
             rapportsView = new RapportsView();
-            rapportsView.DataContext = new RapportsView();
+            rapportsView.DataContext = new RapportsVM();
+
+            gestionView = new GestionView();
+            gestionView.DataContext = new GestionVM();
+
+            if(gestionView.DataContext is GestionVM vm)
+            {
+                tarificationDialog = new TarificationDialog(vm.TarificationSelectionnee, false);
+                tarificationDialog.DataContext = new TarificationDialogVM(vm.TarificationSelectionnee, tarificationDialog.CloseDialogWithResult);
+
+                if(vm.UtilisateurSelectionne is null)
+                {
+                    UtilisateurDialogVM utilisateurDialogVM_0 = new UtilisateurDialogVM(new Utilisateur { Role = "admin" });
+                    utilisateurDialog = new UtilisateurDialog(utilisateurDialogVM_0);
+                }
+                else
+                {
+                    UtilisateurDialogVM utilisateurDialogVM_1 = new UtilisateurDialogVM(vm.UtilisateurSelectionne);
+                    utilisateurDialog = new UtilisateurDialog(utilisateurDialogVM_1);
+                }  
+            }
+
+            configurationDialog = new ConfigurationDialog(new ConfigurationDialogVM());
+
+
 
             //Direct à l'ouverture de la fenêtre !
             RessourceHelper.SetInitialLanguage();
 
             Language = ConfigurationManager.AppSettings["language"];
             SelectLanguage();
-
-          
-
-           
-
 
             //C'est apres tout ceci qu'on Load les labels
             LoadLabels();
@@ -128,12 +147,16 @@ namespace Administration.View
             label_Dashboard.Text = Resource.Dashboard;  
             label_Management.Text = Resource.Management;
             label_reports.Text = Resource.reports;
+            label_Logout.ToolTip = Resource.Logout; 
 
             //Charge aussi les labels des autres page
             login.LoadLabels();
             tableauBordView.LoadLabels();
             gestionView.LoadLabels();
+            tarificationDialog.LoadLabels();
             rapportsView.LoadLabels() ;
+            utilisateurDialog.LoadLabels();
+            configurationDialog.LoadLabels();
 
         }
 
@@ -203,13 +226,20 @@ namespace Administration.View
                             }
                         }
 
+                        // Mise à jour des textes hint de la VM de utilisateurDialog
+                        if (newPageInstance.GetType() == utilisateurDialog.GetType())
+                        {
+                            if (newPageInstance.DataContext is UtilisateurDialogVM vm)
+                            {
+                                vm.LoadLabels();
+                            }
+                        }
+
                         MainFrame.Navigate(newPageInstance);
                     }
 
-                    //probablement pour d'autres View plus tard
-
                     // Enregistre la langue sélectionnée dans les paramètres de configuration
-                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                     config.AppSettings.Settings["language"].Value = selectedLanguage;
                     config.Save(ConfigurationSaveMode.Modified);
                     ConfigurationManager.RefreshSection("appSettings");
@@ -221,7 +251,7 @@ namespace Administration.View
         {
             MainFrame.Navigate(new Login());
             NavButtonsPanel.Visibility = Visibility.Collapsed;
-            btnDeconnexion.Visibility = Visibility.Collapsed;
+            label_Logout.Visibility = Visibility.Collapsed;
         }
 
         public void AfficherTableauBord()
@@ -231,7 +261,7 @@ namespace Administration.View
 
             MainFrame.Navigate(tableauBordPage);
             NavButtonsPanel.Visibility = Visibility.Visible;
-            btnDeconnexion.Visibility = Visibility.Visible;
+            label_Logout.Visibility = Visibility.Visible;
         }
 
         private void BtnDeconnexion_Click(object sender, RoutedEventArgs e)

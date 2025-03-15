@@ -32,16 +32,9 @@
                     <ComboBoxItem Content="English" Tag="en"/>
                 </ComboBox>
 
-                <!-- Bouton Déconnexion (caché au début) -->
-                <!--<Button x:Name="btnDeconnexion" Content="Déconnexion"
-                        Click="BtnDeconnexion_Click"
-                        VerticalAlignment="Center" Margin="20,0,0,0"
-                        Visibility="Collapsed"/>-->
-
-                <Button x:Name="btnDeconnexion" 
+                <Button x:Name="label_Logout" 
                         VerticalAlignment="Center" Margin="10,0,0,0"
                         Click="BtnDeconnexion_Click"
-                        ToolTip="Déconnexion"
                         >
                     <materialDesign:PackIcon Kind="Logout" />
                 </Button>

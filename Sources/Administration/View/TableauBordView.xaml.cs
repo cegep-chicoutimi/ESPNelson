@@ -31,6 +31,9 @@ namespace Administration.View
 
         }
 
+        /// <summary>
+        /// Charge les labels et met à jour leur texte en fonction de la langue sélectionnée.
+        /// </summary>
         public void LoadLabels()
         {
             label_Dashboard.Text = Resource.Dashboard;
@@ -41,7 +44,8 @@ namespace Administration.View
             label_PlacesOccupied.Text = Resource.PlacesAvailable;
             label_PlacesAvailable.Text = Resource.PlacesAvailable;
             label_Day.Text = Resource.Day;
-            label_Hour.Text = Resource.Hour;    
+            label_Hour.Text = Resource.Hour;   
+            label_Refresh.ToolTip = Resource.Refresh;   
         }
     }
 }

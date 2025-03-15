@@ -32,11 +32,10 @@
                            FontSize="24" FontWeight="Bold" VerticalAlignment="Center"
                             HorizontalAlignment="Center" />
 
-                <Button Width="120" Height="100" Margin="20,0" 
+                <Button x:Name="label_Refresh" Width="120" Height="100" Margin="20,0" 
                         Background="#009A44" Foreground="White" 
                         VerticalAlignment="Center"
-                        Command="{Binding RefreshCommand}"
-                        ToolTip="Actualiser">
+                        Command="{Binding RefreshCommand}">
                     <materialDesign:PackIcon Kind="Update"  Width="40" Height="50" />
                 </Button>
 

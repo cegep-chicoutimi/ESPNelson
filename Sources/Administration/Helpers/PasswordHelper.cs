@@ -8,7 +8,10 @@ using System.Windows;
 using Administration.Data;
 using Administration.Data.Context;
 using Administration.Model;
+using Administration.Resources;
 
+
+//Ce code ne vient pas de moi mais d'un travail précédent fait avec Jerome et Xavier
 namespace Administration.Helpers
 {
     public class PasswordHelper
@@ -31,12 +34,27 @@ namespace Administration.Helpers
         }
 
 
+        /// <summary>
+        /// Réinitialise le mot de passe d'un utilisateur et lui envoie un nouveau mot de passe par email.
+        /// </summary>
+        /// <param name="email">L'adresse email de l'utilisateur pour lequel réinitialiser le mot de passe.</param>
+        /// <param name="utilisateur">L'utilisateur dont le mot de passe doit être réinitialisé (optionnel).</param>
+        /// <param name="context">Le contexte de base de données (optionnel).</param>
+        /// <returns>
+        /// <c>true</c> si la réinitialisation du mot de passe et l'envoi de l'email ont réussi ;
+        /// <c>false</c> en cas d'erreur (email invalide, échec d'envoi d'email, ou erreur de base de données).
+        /// </returns>
         public static async Task<bool> ResetPassword(string email, Utilisateur? utilisateur = null, AdministrationContext? context = null)
         {
             // Verify that the email is valid
             if (email is null || !EmailHelper.IsValidEmail(email))
             {
-                MessageBox.Show("Adresse courriel invalide", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                     Resource.InvalidEmail,
+                     Resource.ErrorTitle,
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Error
+                );
                 return false;
             }
 
@@ -44,8 +62,8 @@ namespace Administration.Helpers
             string newPassword = await GeneratePassword(8);
 
             // Send the new password to the user
-            string subject = "Réinitialisation de mot de passe";
-            string body = "Votre nouveau mot de passe est: " + newPassword + ".\n\nVeuillez changer votre mot de passe une fois connecter!";
+            string subject = Resource.PasswordResetSubject;
+            string body = string.Format(Resource.PasswordResetBody, newPassword);
             await EmailHelper.SendEmail(string.Empty, email, subject, body);
 
             // Update the password in the database
@@ -56,7 +74,6 @@ namespace Administration.Helpers
                 utilisateur = context.Utilisateurs.FirstOrDefault(u => u.Email == email);
             }
             utilisateur.MotDePasse = CryptographyHelper.HashPassword(newPassword);
-            utilisateur.MotDePasseDoitEtreChange = true; //Pour qu'il change son mot de passe lors de la prochaine connexion par lui meme dans la console de gestion
             try
             {
                 context.SaveChanges();
@@ -64,27 +81,15 @@ namespace Administration.Helpers
             catch (Exception e)
             {
 
-                MessageBox.Show("Erreur lors de la réinitialisation du mot de passe: " + e.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                    string.Format(Resource.PasswordResetError, e.Message),
+                    Resource.ErrorTitle,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
                 return false;
             }
             return true;
-        }
-
-        /// <summary>
-        /// Vérifie si le mot de passe, un SecureString, est vide
-        /// </summary>
-        /// <param name="password">Le SecureString</param>
-        /// <returns>True s'il est vide. Sinon false</returns>
-        public static bool IsPasswordEmpty(SecureString password)
-        {
-            try
-            {
-                return password.Length == 0;
-            }
-            catch (Exception e)
-            {
-                return true;
-            }
         }
     }
 }

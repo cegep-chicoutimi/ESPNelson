@@ -13,7 +13,7 @@
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <!-- Barre contenant le titre de la page en haut -->
         <Border DockPanel.Dock="Top" Background="DarkBlue" Height="60">
-            <TextBlock Text="CONSOLE DE GESTION" Foreground="White" 
+            <Label x:Name="label_Management"  Foreground="White" 
                        FontSize="24" FontWeight="Bold" VerticalAlignment="Center"
                        HorizontalAlignment="Center" Padding="10"/>
         </Border>
@@ -37,7 +37,7 @@
                     </TabItem.Header>
 
                     <StackPanel Margin="16">
-                        <TextBlock Text="Liste des administrateurs" FontWeight="Bold" FontSize="40" 
+                        <TextBlock x:Name="label_ListDirectors" FontWeight="Bold" FontSize="40" 
                                    HorizontalAlignment="Center"/>
 
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
@@ -56,12 +56,12 @@
 
                                 <!-- Colonne Nom utilisateur -->
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Nom utilisateur" 
+                                    <DataGridTextColumn x:Name="label_Username"
                                                         Binding="{Binding NomUtilisateur}" 
                                                         Width="2*" />   
 
                                     <!-- Colonne Email -->
-                                    <DataGridTextColumn Header="Email" 
+                                    <DataGridTextColumn x:Name="label_Email"
                                                         Binding="{Binding Email}" 
                                                         Width="3*" />   
                                 </DataGrid.Columns>
@@ -71,16 +71,16 @@
 
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                            <Button Content="Ajouter" Command="{Binding AjouterUtilisateurCommand}" 
+                            <Button x:Name="label_Add1" Command="{Binding AjouterUtilisateurCommand}" 
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     Width="100" Height="50"/>
 
-                            <Button Content="Modifier" Command="{Binding ModifierUtilisateurCommand}" 
+                            <Button x:Name="label_Edit" Command="{Binding ModifierUtilisateurCommand}" 
                                     Style="{StaticResource MaterialDesignOutlinedButton}" 
                                     Visibility="{Binding BoutonsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
                                     Margin="50,0,0,0" Width="100" Height="50"/>
 
-                            <Button Content="Supprimer" Command="{Binding SupprimerUtilisateurCommand}" 
+                            <Button x:Name="label_Delete1" Command="{Binding SupprimerUtilisateurCommand}" 
                                     Style="{StaticResource MaterialDesignOutlinedButton}" 
                                     Visibility="{Binding BoutonsVisible, Converter={StaticResource BooleanToVisibilityConverter}}" 
                                     Margin="50,0,0,0" Width="100" Height="50"/>
@@ -94,12 +94,12 @@
                     <TabItem.Header>
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                             <materialDesign:PackIcon Kind="CashMultiple" Width="40" Height="50" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Tarifications"  TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="label_PriceList" TextWrapping="Wrap" FontWeight="Bold" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </TabItem.Header>
 
                     <StackPanel Orientation="Vertical" Margin="16">
-                        <TextBlock Text="Tarifications prédéfinies" FontWeight="Bold" FontSize="40" 
+                        <TextBlock x:Name="label_PredefinedPricing" FontWeight="Bold" FontSize="40" 
                                    HorizontalAlignment="Center"/>
 
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
@@ -118,16 +118,16 @@
                                   CanUserAddRows="False">
 
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Niveau" Binding="{Binding Niveau}" Width="*"/>
-                                <DataGridTextColumn Header="Prix (en $)" Binding="{Binding Prix}" Width="*"/>
-                                <DataGridTextColumn Header="Durée Min (heure)" Binding="{Binding DureeMin}" Width="*"/>
-                                <DataGridTextColumn Header="Durée Max (heure)" Binding="{Binding DureeMax}" Width="*"/>
+                                <DataGridTextColumn x:Name="label_Level" Binding="{Binding Niveau}" Width="*"/>
+                                <DataGridTextColumn x:Name="label_Price" Binding="{Binding Prix}" Width="*"/>
+                                <DataGridTextColumn x:Name="label_DurationMin"  Binding="{Binding DureeMin}" Width="*"/>
+                                <DataGridTextColumn x:Name="label_DurationMax" Binding="{Binding DureeMax}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                            <Button Content="Modifier" Command="{Binding ModifierTarificationCommand}" 
+                            <Button x:Name="label_Edit1" Command="{Binding ModifierTarificationCommand}" 
                                     IsEnabled="{Binding TarificationSelectionnee, Converter={StaticResource NullToBooleanConverter}}" 
                                     Margin="5" Width="100" Height="50"/>
                         </StackPanel>
@@ -144,9 +144,10 @@
                     </TabItem.Header>
 
                     <StackPanel Margin="20">
-                        <Label x:Name="label_ListDirectors" FontWeight="Bold" FontSize="40" 
+                        <Label x:Name="label_SystemConfigurations" FontWeight="Bold" FontSize="40" 
                                    HorizontalAlignment="Center"/>
-                        <TextBlock Text="C'est la configuration la plus récente qui est appliquée à tous le système" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="label_SystemConfigurationsInformation" 
+                                   FontWeight="Bold" HorizontalAlignment="Center"/>
 
                         <DataGrid ItemsSource="{Binding Configurations, Mode=OneWay}" 
                                   SelectedItem="{Binding ConfigurationSelectionnee}"
@@ -160,11 +161,11 @@
                                   CanUserAddRows="False">
 
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Capacité max" Binding="{Binding CapaciteMax}" Width="*"/>
-                                <DataGridTextColumn Header="Taxe fédérale" Binding="{Binding TaxeFederal, StringFormat='{}{0:C}'}"  Width="*"/>
-                                <DataGridTextColumn Header="Taxe provinciale" Binding="{Binding TaxeProvincial, StringFormat='{}{0:C}'}"  Width="*"/>
-                                <DataGridTextColumn Header="Date de modification" Binding="{Binding DateModification, StringFormat='dd/MM/yyyy HH:mm'}" Width="*"/>
-                                <DataGridTextColumn Header="Faite par" Binding="{Binding Utilisateur.NomUtilisateur, TargetNullValue='Admin supprimé'}" Width="*"/>
+                                <DataGridTextColumn x:Name="label_MaxCapacity" Binding="{Binding CapaciteMax}" Width="*"/>
+                                <DataGridTextColumn x:Name="label_FederalTax" Binding="{Binding TaxeFederal, StringFormat='{}{0:C}'}"  Width="*"/>
+                                <DataGridTextColumn x:Name="label_ProvincialTax" Binding="{Binding TaxeProvincial, StringFormat='{}{0:C}'}"  Width="*"/>
+                                <DataGridTextColumn x:Name="label_DateOfModication" Binding="{Binding DateModification, StringFormat='dd/MM/yyyy HH:mm'}" Width="*"/>
+                                <DataGridTextColumn x:Name="label_MadeBy" Binding="{Binding Utilisateur.NomUtilisateur, TargetNullValue='Admin supprimé'}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

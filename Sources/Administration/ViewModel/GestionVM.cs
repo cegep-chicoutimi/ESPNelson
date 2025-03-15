@@ -1,6 +1,7 @@
 ﻿using Administration.Data;
 using Administration.Data.Context;
 using Administration.Model;
+using Administration.Resources;
 using Administration.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,6 +14,9 @@ using System.Windows;
 
 namespace Administration.ViewModel
 {
+    /// <summary>
+    /// ViewModel pour la gestion des utilisateurs, tarifications et configurations.
+    /// </summary> 
     public partial class GestionVM : ObservableObject
     {
         private readonly AdministrationContext _dbContext;
@@ -38,6 +42,10 @@ namespace Administration.ViewModel
         [ObservableProperty]
         private Configuration? configurationSelectionnee;
 
+        /// <summary>
+        /// Constructeur du ViewModel.
+        /// Initialise le contexte de base de données et charge les données initiales.
+        /// </summary>
         public GestionVM()
         {
             AdministrationContextFactory factory = new AdministrationContextFactory();
@@ -48,74 +56,190 @@ namespace Administration.ViewModel
             ChargerConfigurations();
         }
 
+        #region utilisateurs
+
+        /// <summary>
+        /// Charge la liste des administrateurs depuis la base de données.
+        /// </summary>
         private void ChargerUtilisateurs()
         {
-            var admins = _dbContext.Utilisateurs
-                .Where(u => u.Role == "admin")
-                .ToList();
+            try
+            {
+                var admins = _dbContext.Utilisateurs
+                    .Where(u => u.Role == "admin")
+                    .ToList();
 
-            Administrateurs = new ObservableCollection<Utilisateur>(admins);
-            BoutonsVisible = false;
+                Administrateurs = new ObservableCollection<Utilisateur>(admins);
+                BoutonsVisible = false;
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
 
+
+        /// <summary>
+        /// Met à jour la visibilité des boutons en fonction de la sélection d'un utilisateur.
+        /// </summary>
+        partial void OnUtilisateurSelectionneChanged(Utilisateur? value)
+        {
+            BoutonsVisible = value != null;
+        }
+
+
+        /// <summary>
+        /// Affiche un dialogue pour modifier ou ajouter un utilisateur.
+        /// </summary>
+        /// <param name="utilisateur">L'utilisateur à modifier ou ajouter.</param>
+        /// <returns>True si l'utilisateur a confirmé, sinon False.</returns>
+        private async Task<bool> AfficherDialogUtilisateur(Utilisateur utilisateur)
+        {
+            var dialog = new UtilisateurDialog(new UtilisateurDialogVM(utilisateur));
+            return dialog.ShowDialog() == true;
+        }
+
+        /// <summary>
+        /// Ajoute un nouvel utilisateur après avoir affiché un dialogue de saisie.
+        /// </summary>
+        [RelayCommand]
+        private async Task AjouterUtilisateur()
+        {
+            try
+            {
+                var nouvelUtilisateur = new Utilisateur { Role = "admin" };  // Par défaut
+                await AfficherDialogUtilisateur(nouvelUtilisateur);
+
+                ChargerUtilisateurs();
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        }
+
+        
+
+        /// <summary>
+        /// Modifie l'utilisateur sélectionné après avoir affiché un dialogue de saisie.
+        /// </summary>
+        [RelayCommand]
+        private async Task ModifierUtilisateur()
+        {
+            if (UtilisateurSelectionne == null)
+            {
+                MessageBox.Show(
+                    Resource.SelectUser,
+                    "Information",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+                return;
+            }
+            await AfficherDialogUtilisateur(UtilisateurSelectionne);
+
+            ChargerUtilisateurs();
+        }
+
+
+        /// <summary>
+        /// Supprime l'utilisateur sélectionné après confirmation.
+        /// </summary>
+        [RelayCommand]
+        private void SupprimerUtilisateur()
+        {
+            try
+            {
+                if (UtilisateurSelectionne == null)
+                    return;
+
+                if (MessageBox.Show(
+                    string.Format(Resource.ConfirmDeletion, UtilisateurSelectionne.NomUtilisateur),
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    _dbContext.Utilisateurs.Remove(UtilisateurSelectionne);
+                    _dbContext.SaveChanges();
+                    ChargerUtilisateurs();
+                }
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Charge la liste des tarifications depuis la base de données.
+        /// </summary>
         private void ChargerTarifications()
         {
-            Tarifications = new ObservableCollection<Tarification>(_dbContext.Tarifications.ToList());
+            try
+            {
+                Tarifications = new ObservableCollection<Tarification>(_dbContext.Tarifications.ToList());
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
+
+        #region configurations
 
         private void ChargerConfigurations()
         {
-            var configs = _dbContext.Configurations
-                .Include(c => c.Utilisateur) 
-                .ToList();
-
-            Configurations = new ObservableCollection<Configuration>(configs);
-        }
-
-        [RelayCommand]
-        private void AjouterConfiguration()
-        {
-            var nouvelleConfiguration = new Configuration
+            try
             {
-                DateModification = DateTime.Now,
-                UtilisateurId = App.Current.User.Id
-            };
+                var configs = _dbContext.Configurations
+                    .Include(c => c.Utilisateur)
+                    .ToList();
 
-            if (AfficherDialogConfiguration(nouvelleConfiguration))
+                Configurations = new ObservableCollection<Configuration>(configs);
+            }
+            catch (Exception ex)
             {
-                _dbContext.Configurations.Add(nouvelleConfiguration);
-                _dbContext.SaveChanges();
-                ChargerConfigurations();
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
 
-        [RelayCommand]
-        private void SupprimerConfiguration()
-        {
-            // Vérifie si aucune configuration n'est sélectionnée
-            if (ConfigurationSelectionnee == null)
-            {
-                MessageBox.Show("Veuillez sélectionner la configuration à supprimer", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-            // Vérifie si c'est la seule configuration dans la liste
-            if (Configurations.Count == 1)
-            {
-                MessageBox.Show("Impossible de supprimer la dernière configuration. Le système a besoin d'au moins une configuration.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-
-
-            // Demande une confirmation avant de supprimer
-            if (MessageBox.Show("Confirmer la suppression de cette configuration ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-            {
-                _dbContext.Configurations.Remove(ConfigurationSelectionnee);
-                _dbContext.SaveChanges();
-                ChargerConfigurations();
-            }
-        }
-
+        /// <summary>
+        /// Affiche un dialogue pour modifier ou ajouter une configuration.
+        /// </summary>
+        /// <param name="configuration">La configuration à modifier ou ajouter.</param>
+        /// <returns>True si l'utilisateur a confirmé, sinon False.</returns>
         private bool AfficherDialogConfiguration(Configuration configuration)
         {
             var vm = new ConfigurationDialogVM
@@ -137,75 +261,142 @@ namespace Administration.ViewModel
             return false;
         }
 
-
-
-        partial void OnUtilisateurSelectionneChanged(Utilisateur? value)
-        {
-            BoutonsVisible = value != null;
-        }
-
-
-        private async Task<bool> AfficherDialogUtilisateur(Utilisateur utilisateur)
-        {
-            var dialog = new UtilisateurDialog(new UtilisateurDialogVM(utilisateur));
-            return dialog.ShowDialog() == true;
-        }
-
-
+        /// <summary>
+        /// Ajoute une nouvelle configuration après avoir affiché un dialogue de saisie.
+        /// </summary>
         [RelayCommand]
-        private async Task AjouterUtilisateur()
+        private void AjouterConfiguration()
         {
-            var nouvelUtilisateur = new Utilisateur { Role = "admin" };  // Par défaut
-            await AfficherDialogUtilisateur(nouvelUtilisateur);
+            try
+            {
+                var nouvelleConfiguration = new Configuration
+                {
+                    DateModification = DateTime.Now,
+                    UtilisateurId = App.Current.User.Id
+                };
 
-            ChargerUtilisateurs();
+                if (AfficherDialogConfiguration(nouvelleConfiguration))
+                {
+                    _dbContext.Configurations.Add(nouvelleConfiguration);
+                    _dbContext.SaveChanges();
+                    ChargerConfigurations();
+                }
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
+
+        #endregion
+
+
+        /// <summary>
+        /// Supprime la configuration sélectionnée après confirmation.
+        /// </summary>
+        [RelayCommand]
+        private void SupprimerConfiguration()
+        {
+            try
+            {
+                // Vérifie si aucune configuration n'est sélectionnée
+                if (ConfigurationSelectionnee == null)
+                {
+                    MessageBox.Show(
+                        Resource.SelectConfigToDelete,
+                        "Information",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    return;
+                }
+
+                // Vérifie si c'est la seule configuration dans la liste
+                if (Configurations.Count == 1)
+                {
+                    MessageBox.Show(
+                        Resource.CannotDeleteLastConfig,
+                        "Information",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    return;
+                }
+
+                // Demande une confirmation avant de supprimer
+                if (MessageBox.Show(
+                    Resource.ConfirmConfigDeletion,
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    _dbContext.Configurations.Remove(ConfigurationSelectionnee);
+                    _dbContext.SaveChanges();
+                    ChargerConfigurations();
+                }
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        }
+
 
        
 
-        [RelayCommand]
-        private async Task ModifierUtilisateur()
-        {
-            if (UtilisateurSelectionne == null)
-            {
-                MessageBox.Show("Veuillez sélectionner un utilisateur.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            await AfficherDialogUtilisateur(UtilisateurSelectionne);
 
-            ChargerUtilisateurs();
-        }
+       
 
 
-        [RelayCommand]
-        private void SupprimerUtilisateur()
-        {
-            if (UtilisateurSelectionne == null)
-                return;
 
-            if (MessageBox.Show($"Confirmer la suppression de {UtilisateurSelectionne.NomUtilisateur} ?",
-                                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-            {
-                _dbContext.Utilisateurs.Remove(UtilisateurSelectionne);
-                _dbContext.SaveChanges();
-                ChargerUtilisateurs();
-            }
-        }
-
+        /// <summary>
+        /// Modifie la tarification sélectionnée après avoir affiché un dialogue de saisie.
+        /// </summary>
         [RelayCommand]
         private void ModifierTarification()
         {
-            if (TarificationSelectionnee != null)
+            try
             {
-                if (AfficherDialogTarification(TarificationSelectionnee, false))
+                if (TarificationSelectionnee != null)
                 {
-                    _dbContext.Tarifications.Update(TarificationSelectionnee);
-                    _dbContext.SaveChanges();
-                    ChargerTarifications();
+                    if (AfficherDialogTarification(TarificationSelectionnee, false))
+                    {
+                        _dbContext.Tarifications.Update(TarificationSelectionnee);
+                        _dbContext.SaveChanges();
+                        ChargerTarifications();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                // En cas d'erreur, affiche un message d'erreur
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
         }
 
+        /// <summary>
+        /// Affiche un dialogue pour modifier ou ajouter une tarification.
+        /// </summary>
+        /// <param name="tarification">La tarification à modifier ou ajouter.</param>
+        /// <param name="estNouvelle">Indique si la tarification est nouvelle.</param>
+        /// <returns>True si l'utilisateur a confirmé, sinon False.</returns>
         private bool AfficherDialogTarification(Tarification tarification, bool estNouvelle)
         {
             var dialog = new TarificationDialog(tarification, estNouvelle);

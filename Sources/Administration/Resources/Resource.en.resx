@@ -120,11 +120,41 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddAdministrator" xml:space="preserve">
+    <value>Add an administrator</value>
+  </data>
+  <data name="AdminRequired" xml:space="preserve">
+    <value>You must be an administrator.</value>
+  </data>
+  <data name="AdminRequiredTitle" xml:space="preserve">
+    <value>Authorization</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>All (default)</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CannotDeleteLastConfig" xml:space="preserve">
+    <value>Cannot delete the last configuration. The system requires at least one configuration.</value>
+  </data>
+  <data name="CapacityMustBePositiveInteger" xml:space="preserve">
+    <value>The maximum capacity must be a positive integer.</value>
+  </data>
+  <data name="Change your password" xml:space="preserve">
+    <value>Change your password</value>
+  </data>
   <data name="Configurations" xml:space="preserve">
     <value>Configurations</value>
+  </data>
+  <data name="ConfirmConfigDeletion" xml:space="preserve">
+    <value>Confirm deletion of this configuration?</value>
+  </data>
+  <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Confirm deletion of {0}?</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
   </data>
   <data name="Connection" xml:space="preserve">
     <value>Connection</value>
@@ -132,20 +162,56 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="DateOfModification" xml:space="preserve">
+    <value>Date of modification</value>
+  </data>
   <data name="Day" xml:space="preserve">
     <value>Day</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DurationMax" xml:space="preserve">
+    <value>Duration Max (hour)</value>
+  </data>
+  <data name="DurationMin" xml:space="preserve">
+    <value>Duration Min (hour)</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailAlreadyUsed" xml:space="preserve">
+    <value>This email is already used by another administrator.</value>
+  </data>
+  <data name="EmailSent" xml:space="preserve">
+    <value>An email has been sent to the address associated with your account with a temporary password.</value>
+  </data>
+  <data name="EmailSentTitle" xml:space="preserve">
+    <value>Email sent</value>
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>End date</value>
   </data>
+  <data name="EnterUsername" xml:space="preserve">
+    <value>Please enter your username.</value>
+  </data>
+  <data name="EnterUsernameTitle" xml:space="preserve">
+    <value>Enter username</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorUnexpected" xml:space="preserve">
+    <value>An unexpected error has occurred</value>
+  </data>
   <data name="ExportAsPDF" xml:space="preserve">
     <value>Export as PDF</value>
+  </data>
+  <data name="FederalTax" xml:space="preserve">
+    <value>Federal tax</value>
   </data>
   <data name="GenerateReport" xml:space="preserve">
     <value>Generate the report</value>
@@ -156,20 +222,74 @@
   <data name="Hour" xml:space="preserve">
     <value>Hour</value>
   </data>
+  <data name="IncorrectOldPassword" xml:space="preserve">
+    <value>Incorrect old password.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
+  <data name="InvalidInfoTitle" xml:space="preserve">
+    <value>Invalid information</value>
+  </data>
+  <data name="InvalidValues" xml:space="preserve">
+    <value>Please enter valid values.</value>
+  </data>
   <data name="Language" xml:space="preserve">
-    <value>Dashboard	Tableau de bord	
-Language	Langue	
-Management	Console de gestion	
-reports	Section rapports</value>
+    <value>Language</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
   </data>
   <data name="ListDirectors" xml:space="preserve">
     <value>List of directors</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="MadeBy" xml:space="preserve">
+    <value>Made by</value>
+  </data>
   <data name="Management" xml:space="preserve">
     <value>Management gestion</value>
   </data>
+  <data name="MaxCapacity" xml:space="preserve">
+    <value>Max. capacity</value>
+  </data>
+  <data name="MissingCredentials" xml:space="preserve">
+    <value>You must enter a valid username and password.</value>
+  </data>
+  <data name="MissingCredentialsTitle" xml:space="preserve">
+    <value>Missing input</value>
+  </data>
+  <data name="ModifyAdministrator" xml:space="preserve">
+    <value>Modify an administrator</value>
+  </data>
+  <data name="NewConfiguration" xml:space="preserve">
+    <value>New Configuration</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="NoEmailAssociated" xml:space="preserve">
+    <value>No email is associated with this username.</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="PasswordResetBody" xml:space="preserve">
+    <value>Your new password is: {0}.\n\nPlease change your password once logged in!</value>
+  </data>
+  <data name="PasswordResetError" xml:space="preserve">
+    <value>Error during password reset: {0}</value>
+  </data>
+  <data name="PasswordResetSubject" xml:space="preserve">
+    <value>Password Reset</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match.</value>
   </data>
   <data name="PlacesAvailable" xml:space="preserve">
     <value>Places available</value>
@@ -177,8 +297,23 @@ reports	Section rapports</value>
   <data name="PlacesOccupied" xml:space="preserve">
     <value>Places occupied</value>
   </data>
+  <data name="PredefinedPricing" xml:space="preserve">
+    <value>Predefined pricing</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price (in $)</value>
+  </data>
   <data name="PriceList" xml:space="preserve">
     <value>Price list</value>
+  </data>
+  <data name="PricingManagement" xml:space="preserve">
+    <value>Pricing Management</value>
+  </data>
+  <data name="ProvincialTax" xml:space="preserve">
+    <value>Provincial tax</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
   </data>
   <data name="reports" xml:space="preserve">
     <value>reports section</value>
@@ -186,17 +321,38 @@ reports	Section rapports</value>
   <data name="ResetPassword" xml:space="preserve">
     <value>ResetPassword</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SelectConfigToDelete" xml:space="preserve">
+    <value>Please select the configuration to delete.</value>
+  </data>
+  <data name="SelectUser" xml:space="preserve">
+    <value>Please select a user.</value>
+  </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start date</value>
   </data>
   <data name="SubscriptionsOnly" xml:space="preserve">
     <value>Subscriptions only</value>
   </data>
+  <data name="SystemConfigurations" xml:space="preserve">
+    <value>System configurations</value>
+  </data>
+  <data name="SystemConfigurationsInformation" xml:space="preserve">
+    <value>The most recent configuration is applied to the entire system</value>
+  </data>
   <data name="TicketsOnly" xml:space="preserve">
     <value>Tickets only</value>
   </data>
+  <data name="UserCreatedWithTempPassword" xml:space="preserve">
+    <value>The user has been created with "admin" as a temporary password.</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="UsernameAlreadyUsed" xml:space="preserve">
+    <value>This username is already used by another administrator.</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>

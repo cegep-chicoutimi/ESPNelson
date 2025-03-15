@@ -1,4 +1,5 @@
-﻿using Administration.ViewModel;
+﻿using Administration.Resources;
+using Administration.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,17 @@ namespace Administration.View
 
             // On passe la méthode pour fermer la fenêtre à la VM
             vm.CloseDialogAction = CloseDialogWithResult;
+            LoadLabels();
+        }
+
+        public void LoadLabels()
+        {
+            label_NewConfiguration.Title = Resource.NewConfiguration;
+            label_MaxCapacity.Content = Resource.MaxCapacity;   
+            label_FederalTax.Content = Resource.FederalTax;
+            label_ProvincialTax.Content = Resource.ProvincialTax;
+            label_Cancel.Content = Resource.Cancel; 
+            label_Save.Content = Resource.Save;
         }
 
         private void CloseDialogWithResult(bool result)

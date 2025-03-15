@@ -10,35 +10,35 @@
             <TextBlock Text="{Binding TitreDialog}" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
 
             <TextBox Text="{Binding Utilisateur.NomUtilisateur}" 
-                     materialDesign:HintAssist.Hint="Nom utilisateur"
+                     materialDesign:HintAssist.Hint="{Binding NomUtilisateurHint}"
                      Margin="0,5"/>
 
             <TextBox Text="{Binding Utilisateur.Email}" 
-                     materialDesign:HintAssist.Hint="Email"
+                     materialDesign:HintAssist.Hint="{Binding EmailHint}"
                      Margin="0,5"/>
 
             <!-- Bouton Modifier mot de passe pour soi-même -->
-            <Button Content="Modifier votre mot de passe"
+            <Button x:Name="label_ChangeYourPassword"
                     Visibility="{Binding PeutModifierSonMotDePasse, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Command="{Binding ToggleMotDePasseCommand}"
-                    Margin="0,10"/>
+                    Margin="0,10" Click="Button_Click"/>
 
             <!-- Zone de changement de mot de passe (toggle) -->
             <StackPanel Visibility="{Binding AfficherChangementMotDePasse, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <PasswordBox x:Name="OldPasswordBox"
-                             materialDesign:HintAssist.Hint="Ancien mot de passe"
+                             materialDesign:HintAssist.Hint="{Binding OldPasswordHint}"
                              PasswordChanged="OldPasswordBox_PasswordChanged"/>
                 <PasswordBox x:Name="NewPasswordBox"
-                             materialDesign:HintAssist.Hint="Nouveau mot de passe"
+                             materialDesign:HintAssist.Hint="{Binding NewPasswordHint}"
                              PasswordChanged="NewPasswordBox_PasswordChanged"/>
                 <PasswordBox x:Name="ConfirmPasswordBox"
-                             materialDesign:HintAssist.Hint="Confirmer le mot de passe"
+                             materialDesign:HintAssist.Hint="{Binding ConfirmPasswordHint}"
                              PasswordChanged="ConfirmPasswordBox_PasswordChanged"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                <Button Content="{Binding TexteBouton}" Command="{Binding EnregistrerCommand}"/>
-                <Button Content="Annuler" Command="{Binding AnnulerCommand}" Margin="50,0"/>
+                <Button x:Name="label_Save" Command="{Binding EnregistrerCommand}"/>
+                <Button x:Name="label_Cancel" Command="{Binding AnnulerCommand}" Margin="50,0"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -30,6 +30,9 @@ namespace Administration.View
             LoadLabels();
         }
 
+        /// <summary>
+        /// Charge les labels et met à jour leur texte en fonction de la langue sélectionnée.
+        /// </summary>
         public void LoadLabels()
         {
             label_GenerateReport.Content = Resource.GenerateReport;

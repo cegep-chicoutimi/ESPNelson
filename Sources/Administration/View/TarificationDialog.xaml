@@ -5,23 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Gestion Tarification" Height="500" Width="400"
-        WindowStartupLocation="CenterScreen">
+        Height="500" Width="400"
+        WindowStartupLocation="CenterScreen"
+        x:Name="label_PricingManagement">
 
     <Grid Margin="20">
         <StackPanel>
-            <TextBlock Text="Prix :" />
+            <Label x:Name="label_Price"/>
             <TextBox Text="{Binding Tarification.Prix}" Margin="0,0,0,10"/>
 
-            <TextBlock Text="Durée Min (minutes) :" />
+            <Label x:Name="label_DurationMin"/>
             <TextBox Text="{Binding Tarification.DureeMin}" Margin="0,0,0,10"/>
 
-            <TextBlock Text="Durée Max (minutes) :" />
+            <Label x:Name="label_DurationMax"/>
             <TextBox Text="{Binding Tarification.DureeMax}" Margin="0,0,0,20"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Enregistrer" Command="{Binding EnregistrerCommand}" Margin="0,0,50,0"/>
-                <Button Content="Annuler" Command="{Binding AnnulerCommand}"/>
+                <Button x:Name="label_Save" Command="{Binding EnregistrerCommand}" Margin="0,0,50,0"/>
+                <Button x:Name="label_Cancel" Command="{Binding AnnulerCommand}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

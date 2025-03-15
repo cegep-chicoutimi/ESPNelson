@@ -20,6 +20,7 @@
             <helpers:BooleanToInverseVisibilityConverter x:Key="BooleanToInverseVisibilityConverter" />
             <helpers:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
             <helpers:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+            <helpers:DecimalConverter  x:Key="DecimalConverter" />
 
 
             <Style TargetType="Page">

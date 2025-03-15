@@ -70,6 +70,33 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter un administrateur.
+        /// </summary>
+        internal static string AddAdministrator {
+            get {
+                return ResourceManager.GetString("AddAdministrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vous devez être un administrateur..
+        /// </summary>
+        internal static string AdminRequired {
+            get {
+                return ResourceManager.GetString("AdminRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Autorisation.
+        /// </summary>
+        internal static string AdminRequiredTitle {
+            get {
+                return ResourceManager.GetString("AdminRequiredTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Tous (par défaut).
         /// </summary>
         internal static string All {
@@ -79,11 +106,74 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Annuler.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Impossible de supprimer la dernière configuration. Le système a besoin d&apos;au moins une configuration..
+        /// </summary>
+        internal static string CannotDeleteLastConfig {
+            get {
+                return ResourceManager.GetString("CannotDeleteLastConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La capacité maximale doit être un nombre entier positif..
+        /// </summary>
+        internal static string CapacityMustBePositiveInteger {
+            get {
+                return ResourceManager.GetString("CapacityMustBePositiveInteger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier votre mot de passe.
+        /// </summary>
+        internal static string ChangeYourPassword {
+            get {
+                return ResourceManager.GetString("ChangeYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Configurations.
         /// </summary>
         internal static string Configurations {
             get {
                 return ResourceManager.GetString("Configurations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmer la suppression de cette configuration ?.
+        /// </summary>
+        internal static string ConfirmConfigDeletion {
+            get {
+                return ResourceManager.GetString("ConfirmConfigDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmer la suppression de {0} ?.
+        /// </summary>
+        internal static string ConfirmDeletion {
+            get {
+                return ResourceManager.GetString("ConfirmDeletion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmer le mot de passe.
+        /// </summary>
+        internal static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
             }
         }
         
@@ -106,6 +196,15 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Date de modification.
+        /// </summary>
+        internal static string DateOfModification {
+            get {
+                return ResourceManager.GetString("DateOfModification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Jour.
         /// </summary>
         internal static string Day {
@@ -124,11 +223,65 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Durée Max (heure).
+        /// </summary>
+        internal static string DurationMax {
+            get {
+                return ResourceManager.GetString("DurationMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Durée Min (heure).
+        /// </summary>
+        internal static string DurationMin {
+            get {
+                return ResourceManager.GetString("DurationMin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Modifier.
         /// </summary>
         internal static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Courriel.
+        /// </summary>
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cet email est déjà utilisé par un autre administrateur..
+        /// </summary>
+        internal static string EmailAlreadyUsed {
+            get {
+                return ResourceManager.GetString("EmailAlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Un courriel a été envoyé à l&apos;adresse associée à votre compte avec un mot de passe temporaire..
+        /// </summary>
+        internal static string EmailSent {
+            get {
+                return ResourceManager.GetString("EmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Courriel envoyé.
+        /// </summary>
+        internal static string EmailSentTitle {
+            get {
+                return ResourceManager.GetString("EmailSentTitle", resourceCulture);
             }
         }
         
@@ -142,11 +295,56 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez entrer votre nom d&apos;utilisateur..
+        /// </summary>
+        internal static string EnterUsername {
+            get {
+                return ResourceManager.GetString("EnterUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Entrer nom d&apos;utilisateur.
+        /// </summary>
+        internal static string EnterUsernameTitle {
+            get {
+                return ResourceManager.GetString("EnterUsernameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Une erreur inattendue s&apos;est produite.
+        /// </summary>
+        internal static string ErrorUnexpected {
+            get {
+                return ResourceManager.GetString("ErrorUnexpected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Exporter le PDF.
         /// </summary>
         internal static string ExportAsPDF {
             get {
                 return ResourceManager.GetString("ExportAsPDF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Taxe fédérale.
+        /// </summary>
+        internal static string FederalTax {
+            get {
+                return ResourceManager.GetString("FederalTax", resourceCulture);
             }
         }
         
@@ -178,11 +376,56 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ancien mot de passe incorrect..
+        /// </summary>
+        internal static string IncorrectOldPassword {
+            get {
+                return ResourceManager.GetString("IncorrectOldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Adresse courriel invalide.
+        /// </summary>
+        internal static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Informations invalides.
+        /// </summary>
+        internal static string InvalidInfoTitle {
+            get {
+                return ResourceManager.GetString("InvalidInfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez saisir des valeurs valides..
+        /// </summary>
+        internal static string InvalidValues {
+            get {
+                return ResourceManager.GetString("InvalidValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Langue.
         /// </summary>
         internal static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Niveau.
+        /// </summary>
+        internal static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
             }
         }
         
@@ -196,6 +439,24 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Déconnexion.
+        /// </summary>
+        internal static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Faite par.
+        /// </summary>
+        internal static string MadeBy {
+            get {
+                return ResourceManager.GetString("MadeBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Console de gestion.
         /// </summary>
         internal static string Management {
@@ -205,11 +466,128 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Capacité max.
+        /// </summary>
+        internal static string MaxCapacity {
+            get {
+                return ResourceManager.GetString("MaxCapacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La durée minimale doit être inférieure à la durée maximale..
+        /// </summary>
+        internal static string MinDurationLessThanMax {
+            get {
+                return ResourceManager.GetString("MinDurationLessThanMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vous devez saisir un mot de passe et un nom d&apos;utilisateur valide..
+        /// </summary>
+        internal static string MissingCredentials {
+            get {
+                return ResourceManager.GetString("MissingCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Une saisie absente.
+        /// </summary>
+        internal static string MissingCredentialsTitle {
+            get {
+                return ResourceManager.GetString("MissingCredentialsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier un administrateur.
+        /// </summary>
+        internal static string ModifyAdministrator {
+            get {
+                return ResourceManager.GetString("ModifyAdministrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouvelle configuration.
+        /// </summary>
+        internal static string NewConfiguration {
+            get {
+                return ResourceManager.GetString("NewConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nouveau mot de passe.
+        /// </summary>
+        internal static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aucun courriel n&apos;est associé à ce nom d&apos;utilisateur..
+        /// </summary>
+        internal static string NoEmailAssociated {
+            get {
+                return ResourceManager.GetString("NoEmailAssociated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ancien mot de passe.
+        /// </summary>
+        internal static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Mot de passe.
         /// </summary>
         internal static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre nouveau mot de passe est : {0}.\n\nVeuillez changer votre mot de passe une fois connecté !.
+        /// </summary>
+        internal static string PasswordResetBody {
+            get {
+                return ResourceManager.GetString("PasswordResetBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur lors de la réinitialisation du mot de passe : {0}.
+        /// </summary>
+        internal static string PasswordResetError {
+            get {
+                return ResourceManager.GetString("PasswordResetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Réinitialisation de mot de passe.
+        /// </summary>
+        internal static string PasswordResetSubject {
+            get {
+                return ResourceManager.GetString("PasswordResetSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Les mots de passe ne correspondent pas..
+        /// </summary>
+        internal static string PasswordsDoNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
             }
         }
         
@@ -232,11 +610,56 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tarifications prédéfinies.
+        /// </summary>
+        internal static string PredefinedPricing {
+            get {
+                return ResourceManager.GetString("PredefinedPricing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Prix (en $).
+        /// </summary>
+        internal static string Price {
+            get {
+                return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Tarifications.
         /// </summary>
         internal static string PriceList {
             get {
                 return ResourceManager.GetString("PriceList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Gestion Tarification.
+        /// </summary>
+        internal static string PricingManagement {
+            get {
+                return ResourceManager.GetString("PricingManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Taxe provinciale.
+        /// </summary>
+        internal static string ProvincialTax {
+            get {
+                return ResourceManager.GetString("ProvincialTax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Rafraichir.
+        /// </summary>
+        internal static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
             }
         }
         
@@ -259,11 +682,47 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Enregistrer.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez sélectionner la configuration à supprimer..
+        /// </summary>
+        internal static string SelectConfigToDelete {
+            get {
+                return ResourceManager.GetString("SelectConfigToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez sélectionner un utilisateur..
+        /// </summary>
+        internal static string SelectUser {
+            get {
+                return ResourceManager.GetString("SelectUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Start date.
         /// </summary>
         internal static string StartDate {
             get {
                 return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à La date de début ne peut pas être postérieure à la date de fin..
+        /// </summary>
+        internal static string StartDateAfterEndDate {
+            get {
+                return ResourceManager.GetString("StartDateAfterEndDate", resourceCulture);
             }
         }
         
@@ -277,6 +736,24 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Configurations du système.
+        /// </summary>
+        internal static string SystemConfigurations {
+            get {
+                return ResourceManager.GetString("SystemConfigurations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à C&apos;est la configuration la plus récente qui est appliquée à tous le système.
+        /// </summary>
+        internal static string SystemConfigurationsInformation {
+            get {
+                return ResourceManager.GetString("SystemConfigurationsInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Tickets seulement.
         /// </summary>
         internal static string TicketsOnly {
@@ -286,11 +763,29 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à L&apos;utilisateur a été créé avec &quot;admin&quot; comme mot de passe temporaire..
+        /// </summary>
+        internal static string UserCreatedWithTempPassword {
+            get {
+                return ResourceManager.GetString("UserCreatedWithTempPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Nom d&apos;utilisateur.
         /// </summary>
         internal static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce nom d&apos;utilisateur est déjà utilisé par un autre administrateur..
+        /// </summary>
+        internal static string UsernameAlreadyUsed {
+            get {
+                return ResourceManager.GetString("UsernameAlreadyUsed", resourceCulture);
             }
         }
         

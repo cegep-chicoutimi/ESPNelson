@@ -2,6 +2,7 @@
 using Administration.Data.Context;
 using Administration.Helpers;
 using Administration.Model;
+using Administration.Resources;
 using Administration.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -31,8 +32,25 @@ namespace Administration.ViewModel
         public SecureString? NewPassword { get; set; }
         public SecureString? ConfirmPassword { get; set; }
 
-        public string TitreDialog => EstNouveau ? "Ajouter un administrateur" : "Modifier un administrateur";
-        public string TexteBouton => EstNouveau ? "Ajouter" : "Modifier";
+        public string TitreDialog;
+
+        // Propriétés pour les textes dynamiques
+        [ObservableProperty]
+        private string? _nomUtilisateurHint;
+
+        [ObservableProperty]
+        private string? _emailHint;
+
+        [ObservableProperty]
+        private string? _oldPasswordHint;
+
+        [ObservableProperty]
+        private string? _newPasswordHint;
+        [ObservableProperty]
+        private string? _confirmPasswordHint;
+
+
+        public string TexteBouton => EstNouveau ? Resource.Add : Resource.Edit;
 
         public UtilisateurDialogVM(Utilisateur utilisateur)
         {
@@ -40,6 +58,26 @@ namespace Administration.ViewModel
             Utilisateur = utilisateur;
             EstNouveau = utilisateur.Id == 0;
             PeutModifierSonMotDePasse = !EstNouveau && App.Current.User?.Id == utilisateur.Id;
+
+            // Charge les labels avec la langue sélectionnée
+            LoadLabels();
+        }
+
+        /// <summary>
+        /// Charge les labels en fonction de la langue sélectionnée.
+        /// </summary>
+        public void LoadLabels()
+        {
+            TitreDialog = EstNouveau ? Resource.AddAdministrator : Resource.ModifyAdministrator;
+            TitreDialog = EstNouveau ? Resource.Add : Resource.Edit;
+
+            NomUtilisateurHint = Resource.Username;
+            EmailHint = Resource.Email;
+
+            OldPasswordHint = Resource.OldPassword;
+            NewPasswordHint = Resource.NewPassword;
+            ConfirmPasswordHint = Resource.ConfirmPassword; 
+
         }
 
         [RelayCommand]
@@ -48,13 +86,44 @@ namespace Administration.ViewModel
         [RelayCommand]
         private void Enregistrer()
         {
+            if(Utilisateur.Email == null || !EmailHelper.IsValidEmail(Utilisateur.Email))
+            {
+                MessageBox.Show(
+                     Resource.InvalidEmail,
+                     Resource.ErrorTitle,
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Error
+                );
+                return;
+            }
+
             // Vérifier l'unicité de l'email (autre que lui-même s'il s'agit d'une modification)
             bool emailDejaPris = _dbContext.Utilisateurs
-                .Any(u => u.Email == Utilisateur.Email && u.Id != Utilisateur.Id);
+                .Any(u => u.Email == Utilisateur.Email);
 
             if (emailDejaPris)
             {
-                MessageBox.Show("Cet email est déjà utilisé par un autre administrateur.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                     Resource.EmailAlreadyUsed,
+                     Resource.ErrorTitle,
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Warning
+                 );
+                return;
+            }
+
+            // Vérifier l'unicité de username (autre que lui-même s'il s'agit d'une modification)
+            bool usernameDejaPris = _dbContext.Utilisateurs
+                .Any(u => u.NomUtilisateur == Utilisateur.NomUtilisateur);
+
+            if (usernameDejaPris)
+            {
+                MessageBox.Show(
+                     Resource.UsernameAlreadyUsed,
+                     Resource.ErrorTitle,
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Warning
+                 );
                 return;
             }
 
@@ -64,7 +133,12 @@ namespace Administration.ViewModel
                 Utilisateur.MotDePasse = CryptographyHelper.HashPassword("admin");
                 _dbContext.Utilisateurs.Add(Utilisateur);
 
-                MessageBox.Show("l'utilisateur a été crée avec \"admin\" comme mot de passe temporaire", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                     Resource.UserCreatedWithTempPassword,
+                     "Information",
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Information
+                 );
             }
             else
             {
@@ -76,13 +150,23 @@ namespace Administration.ViewModel
 
                     if (!CryptographyHelper.ValidateHashedPassword(oldPassword, Utilisateur.MotDePasse))
                     {
-                        MessageBox.Show("Ancien mot de passe incorrect.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(
+                        Resource.IncorrectOldPassword,
+                        Resource.ErrorTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                    );
                         return;
                     }
 
                     if (newPassword != confirmPassword)
                     {
-                        MessageBox.Show("Les mots de passe ne correspondent pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(
+                            Resource.PasswordsDoNotMatch,
+                            Resource.ErrorTitle,
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                         return;
                     }
 

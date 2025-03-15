@@ -48,7 +48,7 @@ namespace Administration.ViewModel
             AdministrationContextFactory factory = new AdministrationContextFactory();
             _dbContext = factory.CreateDbContext(new string[0]);
 
-            // Charge les labels avec la langue par défaut
+            // Charge les labels avec la langue sélectionnée
             LoadLabels();
         }
 
@@ -61,46 +61,67 @@ namespace Administration.ViewModel
             MotDePasseHint = Resource.Password;   // "Mot de passe"
         }
 
+
         /// <summary>
         /// Commande de connexion
         /// </summary>
         [RelayCommand]
         public void Login()
         {
-            if (MotDePasse == null || string.IsNullOrWhiteSpace(NomUtilisateur))
+            try
             {
-                MessageBox.Show("Vous devez saisir un mot de passe et un nom d'utilisateur valide", "une saisie absente", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
+                if (MotDePasse == null || string.IsNullOrWhiteSpace(NomUtilisateur))
+                {
+                    MessageBox.Show(
+                        Resource.MissingCredentials,
+                        Resource.MissingCredentialsTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    return;
+                }
 
-            Utilisateur utilisateur = _dbContext.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == NomUtilisateur);
-            // Check if the username and password are correct
-            //if (utilisateur == null || !CryptographyHelper.ValidateHashedPassword(ConvertHelper.SecureStringToString(MotDePasse), utilisateur.MotDePasse))
-            //{
-            //    MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect", "Nom utilisateur / mot de passe incorrect", MessageBoxButton.OK, MessageBoxImage.Information);
-            //    return;
-            //}
-            //Vérifie s'il s'agit d'un admin
-            if (utilisateur.Role != "admin")
+                Utilisateur utilisateur = _dbContext.Utilisateurs.FirstOrDefault(u => u.NomUtilisateur == NomUtilisateur);
+                //Check if the username and password are correct
+                if (utilisateur == null || !CryptographyHelper.ValidateHashedPassword(ConvertHelper.SecureStringToString(MotDePasse), utilisateur.MotDePasse))
+                {
+                    MessageBox.Show(
+                        Resource.MissingCredentials,
+                        Resource.MissingCredentialsTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    return;
+                }
+
+                //Vérifie s'il s'agit d'un admin
+                if (utilisateur.Role != "admin")
+                {
+                    MessageBox.Show(
+                         Resource.AdminRequired,
+                         Resource.AdminRequiredTitle,
+                         MessageBoxButton.OK,
+                         MessageBoxImage.Information
+                    );
+                    return;
+                }
+
+                //après un Login réussi
+                App.Current.User = utilisateur; //Stocke les informations de l'utilisateur connecté
+
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.AfficherTableauBord();
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Vous devez être un administrateur", "Autorisation", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                // En cas d'erreur, affiche un message d'erreur et masque le diagramme
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
-
-            //if (utilisateur.MotDePasseDoitEtreChange)
-            //{
-            //    MessageBox.Show("votre mot de passe actuel est 1234 il a été reinitialisé par un administarteur veuillez le reinitialiser à nouveau", "Mot de passe reinirtialisé", MessageBoxButton.OK, MessageBoxImage.Information);
-            //    return;
-            //}
-
-
-            //après un Login réussi
-            App.Current.User = utilisateur; //Stocke les informations de l'utilisateur connecté
- 
-            var mainWindow = (MainWindow)Application.Current.MainWindow;
-            mainWindow.AfficherTableauBord();
-
-
         }
 
         /// <summary>
@@ -109,29 +130,56 @@ namespace Administration.ViewModel
         [RelayCommand]
         public async Task ForgotPassword()
         {
-            if (String.IsNullOrWhiteSpace(NomUtilisateur))
+            try
             {
-                MessageBox.Show("Veuillez entrer votre nom d'utilisateur.", "Entrer nom d'utilisateur", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            Utilisateur? utilisateur = _dbContext.Utilisateurs.FirstOrDefault(e => e.NomUtilisateur == NomUtilisateur);
+                if (String.IsNullOrWhiteSpace(NomUtilisateur))
+                {
+                    MessageBox.Show(
+                        Resource.EnterUsername,
+                        Resource.EnterUsernameTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                    );
+                    return;
+                }
+                Utilisateur? utilisateur = _dbContext.Utilisateurs.FirstOrDefault(e => e.NomUtilisateur == NomUtilisateur);
 
-            if (utilisateur == null)
+                if (utilisateur == null)
+                {
+                    MessageBox.Show(
+                         Resource.NoEmailAssociated,
+                         Resource.InvalidInfoTitle,
+                         MessageBoxButton.OK,
+                         MessageBoxImage.Information
+                     );
+
+                    return;
+                }
+
+                bool result = await PasswordHelper.ResetPassword(utilisateur.Email, utilisateur, _dbContext);
+                if (!result)
+                {
+                    return;
+                }
+
+                MessageBox.Show(
+                        Resource.EmailSent,
+                        Resource.EmailSentTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information
+                 );
+                _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Aucun courriel n'est associé à ce nom d'utilisateur", "Informations invalides", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                // En cas d'erreur, affiche un message d'erreur et masque le diagramme
+                MessageBox.Show(
+                    Resource.ErrorUnexpected + $" : {ex.Message}",
+                    Resource.ErrorUnexpected,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
             }
-
-            bool result = await PasswordHelper.ResetPassword(utilisateur.Email, utilisateur, _dbContext);
-            if (!result)
-            {
-                return;
-            }
-
-            MessageBox.Show("Un courriel a été envoyé à l'adresse associée à votre compte avec un mot de passe temporaire.", "Courriel envoyer", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            utilisateur.MotDePasseDoitEtreChange = false;   //Pour ne plus le forcer à changer 
-            _dbContext.SaveChanges();
         }
     }
 }

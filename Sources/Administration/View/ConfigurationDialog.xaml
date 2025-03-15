@@ -4,36 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Administration.View"
+        xmlns:helpers="clr-namespace:Administration.Helpers"
         mc:Ignorable="d"
-        Title="Nouvelle Configuration" Height="300" Width="400"
-       WindowStartupLocation="CenterScreen">
+        x:Name="label_NewConfiguration" Height="400" Width="400"
+        WindowStartupLocation="CenterScreen">
+   
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Capacité Max -->
-        <TextBlock Text="Capacité Max:" Grid.Row="0" Margin="0,5"/>
-        <TextBox Text="{Binding CapaciteMax, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Margin="0,5"/>
+        <Label x:Name="label_MaxCapacity" Grid.Row="0" Margin="0,5"/>
+        <TextBox Text="{Binding CapaciteMax}" Grid.Row="1" Margin="0,5"/>
 
         <!-- Taxe Fédérale -->
-        <TextBlock Text="Taxe Fédérale:" Grid.Row="2" Margin="0,5"/>
-        <TextBox Text="{Binding TaxeFederal, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Margin="0,5"/>
+        <Label x:Name="label_FederalTax"  Grid.Row="2" Margin="0,5"/>
+        <TextBox Text="{Binding TaxeFederal}" Grid.Row="3" Margin="0,5"/>
 
         <!-- Taxe Provinciale -->
-        <TextBlock Text="Taxe Provinciale:" Grid.Row="4" Margin="0,5"/>
-        <TextBox Text="{Binding TaxeProvincial, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5" Margin="0,5"/>
+        <Label x:Name="label_ProvincialTax" Grid.Row="4" Margin="0,5"/>
+        <TextBox Text="{Binding TaxeProvincial}" Grid.Row="5" Margin="0,5"/>
 
         <!-- Boutons Valider et Annuler -->
         <StackPanel Orientation="Horizontal" Grid.Row="6" HorizontalAlignment="Center" Margin="0,10">
-            <Button Content="Valider" Command="{Binding ValiderCommand}" Width="80" Margin="20,0"/>
-            <Button Content="Annuler" Command="{Binding AnnulerCommand}" Width="80" Margin="5,0"/>
+            <Button x:Name="label_Save" Command="{Binding ValiderCommand}" Width="80" Margin="20,0"/>
+            <Button x:Name="label_Cancel" Command="{Binding AnnulerCommand}" Width="80" Margin="5,0"/>
         </StackPanel>
     </Grid>
 </Window>

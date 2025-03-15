@@ -57,7 +57,7 @@ namespace Administration.Data.Context
 
             modelBuilder.Entity<Utilisateur>()
                 .HasIndex(u => u.Email)
-                .IsUnique();  // ✅ Assure l'unicité de l'email
+                .IsUnique();  // Assure l'unicité de l'email
         }
     }
 }

@@ -25,7 +25,9 @@ namespace Administration.View
     /// </summary>
     public partial class Login : Page
     {
-
+        /// <summary>
+        /// Constructeur de la classe
+        /// </summary>
         public Login()
         {
             InitializeComponent();
@@ -52,13 +54,26 @@ namespace Administration.View
 
         }
 
+        /// <summary>
+        /// Gère l'événement de changement de texte dans le PasswordBox.
+        /// Met à jour la propriété MotDePasse du ViewModel avec le mot de passe saisi.
+        /// </summary>
+        /// <param name="sender">L'objet qui a déclenché l'événement (le PasswordBox).</param>
+        /// <param name="e">Les arguments de l'événement.</param>
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             if (this.DataContext != null)
             { ((dynamic)this.DataContext).MotDePasse = ((PasswordBox)sender).SecurePassword; }
         }
 
-        // Update the Username property each and every time the text changes
+
+
+        /// <summary>
+        /// Gère l'événement de changement de texte dans la TextBox.
+        /// Met à jour la propriété NomUtilisateur du ViewModel avec le texte saisi.
+        /// </summary>
+        /// <param name="sender">L'objet qui a déclenché l'événement (la TextBox).</param>
+        /// <param name="e">Les arguments de l'événement.</param>
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (this.DataContext != null)

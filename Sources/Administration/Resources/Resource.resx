@@ -120,11 +120,41 @@
   <data name="Add" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="AddAdministrator" xml:space="preserve">
+    <value>Ajouter un administrateur</value>
+  </data>
+  <data name="AdminRequired" xml:space="preserve">
+    <value>Vous devez être un administrateur.</value>
+  </data>
+  <data name="AdminRequiredTitle" xml:space="preserve">
+    <value>Autorisation</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Tous (par défaut)</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="CannotDeleteLastConfig" xml:space="preserve">
+    <value>Impossible de supprimer la dernière configuration. Le système a besoin d'au moins une configuration.</value>
+  </data>
+  <data name="CapacityMustBePositiveInteger" xml:space="preserve">
+    <value>La capacité maximale doit être un nombre entier positif.</value>
+  </data>
+  <data name="ChangeYourPassword" xml:space="preserve">
+    <value>Modifier votre mot de passe</value>
+  </data>
   <data name="Configurations" xml:space="preserve">
     <value>Configurations</value>
+  </data>
+  <data name="ConfirmConfigDeletion" xml:space="preserve">
+    <value>Confirmer la suppression de cette configuration ?</value>
+  </data>
+  <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Confirmer la suppression de {0} ?</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmer le mot de passe</value>
   </data>
   <data name="Connection" xml:space="preserve">
     <value>Connexion</value>
@@ -132,20 +162,56 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Tableau de bord</value>
   </data>
+  <data name="DateOfModification" xml:space="preserve">
+    <value>Date de modification</value>
+  </data>
   <data name="Day" xml:space="preserve">
     <value>Jour</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Supprimer</value>
   </data>
+  <data name="DurationMax" xml:space="preserve">
+    <value>Durée Max (heure)</value>
+  </data>
+  <data name="DurationMin" xml:space="preserve">
+    <value>Durée Min (heure)</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="EmailAlreadyUsed" xml:space="preserve">
+    <value>Cet email est déjà utilisé par un autre administrateur.</value>
+  </data>
+  <data name="EmailSent" xml:space="preserve">
+    <value>Un courriel a été envoyé à l'adresse associée à votre compte avec un mot de passe temporaire.</value>
+  </data>
+  <data name="EmailSentTitle" xml:space="preserve">
+    <value>Courriel envoyé</value>
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>End date</value>
   </data>
+  <data name="EnterUsername" xml:space="preserve">
+    <value>Veuillez entrer votre nom d'utilisateur.</value>
+  </data>
+  <data name="EnterUsernameTitle" xml:space="preserve">
+    <value>Entrer nom d'utilisateur</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="ErrorUnexpected" xml:space="preserve">
+    <value>Une erreur inattendue s'est produite</value>
+  </data>
   <data name="ExportAsPDF" xml:space="preserve">
     <value>Exporter le PDF</value>
+  </data>
+  <data name="FederalTax" xml:space="preserve">
+    <value>Taxe fédérale</value>
   </data>
   <data name="GenerateReport" xml:space="preserve">
     <value>Genérer le rapport</value>
@@ -156,17 +222,75 @@
   <data name="Hour" xml:space="preserve">
     <value>Heure</value>
   </data>
+  <data name="IncorrectOldPassword" xml:space="preserve">
+    <value>Ancien mot de passe incorrect.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Adresse courriel invalide</value>
+    <comment>Invalid email address</comment>
+  </data>
+  <data name="InvalidInfoTitle" xml:space="preserve">
+    <value>Informations invalides</value>
+  </data>
+  <data name="InvalidValues" xml:space="preserve">
+    <value>Veuillez saisir des valeurs valides.</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Langue</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Niveau</value>
   </data>
   <data name="ListDirectors" xml:space="preserve">
     <value>Liste des administrateurs</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Déconnexion</value>
+  </data>
+  <data name="MadeBy" xml:space="preserve">
+    <value>Faite par</value>
+  </data>
   <data name="Management" xml:space="preserve">
     <value>Console de gestion</value>
   </data>
+  <data name="MaxCapacity" xml:space="preserve">
+    <value>Capacité max</value>
+  </data>
+  <data name="MissingCredentials" xml:space="preserve">
+    <value>Vous devez saisir un mot de passe et un nom d'utilisateur valide.</value>
+  </data>
+  <data name="MissingCredentialsTitle" xml:space="preserve">
+    <value>Une saisie absente</value>
+  </data>
+  <data name="ModifyAdministrator" xml:space="preserve">
+    <value>Modifier un administrateur</value>
+  </data>
+  <data name="NewConfiguration" xml:space="preserve">
+    <value>Nouvelle configuration</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+  <data name="NoEmailAssociated" xml:space="preserve">
+    <value>Aucun courriel n'est associé à ce nom d'utilisateur.</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Ancien mot de passe</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Mot de passe</value>
+  </data>
+  <data name="PasswordResetBody" xml:space="preserve">
+    <value>Votre nouveau mot de passe est : {0}.\n\nVeuillez changer votre mot de passe une fois connecté !</value>
+  </data>
+  <data name="PasswordResetError" xml:space="preserve">
+    <value>Erreur lors de la réinitialisation du mot de passe : {0}</value>
+  </data>
+  <data name="PasswordResetSubject" xml:space="preserve">
+    <value>Réinitialisation de mot de passe</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Les mots de passe ne correspondent pas.</value>
   </data>
   <data name="PlacesAvailable" xml:space="preserve">
     <value>Places disponibles</value>
@@ -174,8 +298,23 @@
   <data name="PlacesOccupied" xml:space="preserve">
     <value>Places occupied</value>
   </data>
+  <data name="PredefinedPricing" xml:space="preserve">
+    <value>Tarifications prédéfinies</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Prix (en $)</value>
+  </data>
   <data name="PriceList" xml:space="preserve">
     <value>Tarifications</value>
+  </data>
+  <data name="PricingManagement" xml:space="preserve">
+    <value>Gestion Tarification</value>
+  </data>
+  <data name="ProvincialTax" xml:space="preserve">
+    <value>Taxe provinciale</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Rafraichir</value>
   </data>
   <data name="reports" xml:space="preserve">
     <value>Section rapports</value>
@@ -183,17 +322,38 @@
   <data name="ResetPassword" xml:space="preserve">
     <value>Réinitialiser le mot de passe</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="SelectConfigToDelete" xml:space="preserve">
+    <value>Veuillez sélectionner la configuration à supprimer.</value>
+  </data>
+  <data name="SelectUser" xml:space="preserve">
+    <value>Veuillez sélectionner un utilisateur.</value>
+  </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start date</value>
   </data>
   <data name="SubscriptionsOnly" xml:space="preserve">
     <value>Abonnements seulement</value>
   </data>
+  <data name="SystemConfigurations" xml:space="preserve">
+    <value>Configurations du système</value>
+  </data>
+  <data name="SystemConfigurationsInformation" xml:space="preserve">
+    <value>C'est la configuration la plus récente qui est appliquée à tous le système</value>
+  </data>
   <data name="TicketsOnly" xml:space="preserve">
     <value>Tickets seulement</value>
   </data>
+  <data name="UserCreatedWithTempPassword" xml:space="preserve">
+    <value>L'utilisateur a été créé avec "admin" comme mot de passe temporaire.</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Nom d'utilisateur</value>
+  </data>
+  <data name="UsernameAlreadyUsed" xml:space="preserve">
+    <value>Ce nom d'utilisateur est déjà utilisé par un autre administrateur.</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Utilisateur</value>

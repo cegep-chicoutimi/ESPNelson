@@ -1,4 +1,5 @@
 ﻿using Administration.Model;
+using Administration.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -19,13 +20,31 @@ namespace Administration.ViewModel
 
         public Action<bool>? CloseDialogAction { get; set; }  // Action pour fermer la fenêtre
 
+        public ConfigurationDialogVM() { }
+
         [RelayCommand]
         private void Valider()
         {
             // Vérifier que les valeurs sont valides
             if (CapaciteMax <= 0 || TaxeFederal < 0 || TaxeProvincial < 0)
             {
-                MessageBox.Show("Veuillez saisir des valeurs valides.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                         Resource.InvalidValues,
+                         Resource.ErrorTitle,
+                         MessageBoxButton.OK,
+                         MessageBoxImage.Error
+                     );
+                return;
+            }
+
+            if(!int.TryParse(CapaciteMax.ToString(), out int entier))
+            {
+                    MessageBox.Show(
+                            Resource.CapacityMustBePositiveInteger,
+                            Resource.ErrorTitle,
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                 return;
             }
 

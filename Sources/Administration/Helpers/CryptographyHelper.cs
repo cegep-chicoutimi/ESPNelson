@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
 
+
+//Ce code ne vient pas de moi mais d'un travail précédent fait avec Jerome et Xavier
 namespace Administration.Helpers
 {
     public static class CryptographyHelper

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
+
+//Ce code ne vient pas de moi mais d'un travail précédent fait avec Jerome et Xavier
 namespace Administration.Helpers
 {
     public static class ConvertHelper
@@ -162,4 +164,31 @@ namespace Administration.Helpers
             throw new NotImplementedException();
         }
     }
+
+    public class DecimalConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                // Convertit un decimal en string pour l'affichage
+                if (value is decimal decimalValue)
+                {
+                    return decimalValue.ToString(culture);
+                }
+                return value;
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                // Convertit une string en decimal pour la saisie
+                if (value is string stringValue)
+                {
+                    if (decimal.TryParse(stringValue, NumberStyles.Any, culture, out decimal result))
+                    {
+                        return result;
+                    }
+                }
+                return value;
+            }
+        }
+    
 }
