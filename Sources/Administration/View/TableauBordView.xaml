@@ -28,7 +28,7 @@
 
         <Border DockPanel.Dock="Top" Background="DarkBlue" Height="60">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Text="TABLEAU DE BORD" Foreground="White" 
+                <TextBlock x:Name="label_Dashboard" Foreground="White" 
                            FontSize="24" FontWeight="Bold" VerticalAlignment="Center"
                             HorizontalAlignment="Center" />
 
@@ -53,12 +53,12 @@
 
                     <!-- Section Etat du stationnement -->
                     <TextBlock FontSize="16">
-                        <Run Text="Jour: " />
+                        <Run x:Name="label_Day"  />
                         <Run Text="{Binding DateDuJour}" />
                     </TextBlock>
 
                     <TextBlock FontSize="16">
-                        <Run Text="Heure: " />
+                        <Run x:Name="label_Hour" />
                         <Run Text="{Binding HeureActuelle}" />
                     </TextBlock>
                     <Grid Margin="0,10,0,10">
@@ -70,14 +70,14 @@
                         <!-- Places disponibles/occupées -->
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock FontSize="16">
-                                <Run Text="Places occupées: " />
+                                <Run x:Name="label_PlacesOccupied" />
                                 <Run Text="{Binding PlacesOccupees}"
                             />
                          
                             </TextBlock>
 
                             <TextBlock FontSize="16">
-                                <Run Text="Places disponibles: " />
+                                <Run x:Name="label_PlacesAvailable"/>
                                 <Run Text="{Binding PlacesDisponibles}" 
                             />
                             
@@ -104,12 +104,14 @@
                     </Grid>
 
                     <!-- Section Graphique des tendances -->
-                    <TextBlock Text="Graphique des tendances des revenus des 7 derniers jours" FontWeight="Bold" Margin="0,20,0,10"/>
+                    <Label x:Name="label_Graph7Days"
+                           FontWeight="Bold" Margin="0,20,0,10"
+                           HorizontalAlignment="Center"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-                        <RadioButton Content="Tickets seulement" IsChecked="{Binding FiltreTickets}" Margin="10,0"/>
-                        <RadioButton Content="Abonnements seulement" IsChecked="{Binding FiltreAbonnements}" Margin="10,0"/>
-                        <RadioButton Content="Tous (par défaut)" IsChecked="{Binding FiltreTous}" Margin="10,0"/>
+                        <RadioButton x:Name="label_TicketsOnly" IsChecked="{Binding FiltreTickets}" Margin="10,0"/>
+                        <RadioButton x:Name="label_SubscriptionOnly" IsChecked="{Binding FiltreAbonnements}" Margin="10,0"/>
+                        <RadioButton x:Name="label_All" IsChecked="{Binding FiltreTous}" Margin="10,0"/>
                     </StackPanel>
 
 

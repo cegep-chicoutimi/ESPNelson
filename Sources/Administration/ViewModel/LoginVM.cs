@@ -12,6 +12,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Administration.Resources;
 
 namespace Administration.ViewModel
 {
@@ -31,6 +32,13 @@ namespace Administration.ViewModel
         [ObservableProperty]
         private SecureString _motDePasse;
 
+        // Propriétés pour les textes dynamiques
+        [ObservableProperty]
+        private string? _nomUtilisateurHint;
+
+        [ObservableProperty]
+        private string? _motDePasseHint;
+
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -39,6 +47,18 @@ namespace Administration.ViewModel
             // Initialize the database context
             AdministrationContextFactory factory = new AdministrationContextFactory();
             _dbContext = factory.CreateDbContext(new string[0]);
+
+            // Charge les labels avec la langue par défaut
+            LoadLabels();
+        }
+
+        /// <summary>
+        /// Charge les labels en fonction de la langue sélectionnée.
+        /// </summary>
+        public void LoadLabels()
+        {
+            NomUtilisateurHint = Resource.Username; // "Nom d'utilisateur"
+            MotDePasseHint = Resource.Password;   // "Mot de passe"
         }
 
         /// <summary>

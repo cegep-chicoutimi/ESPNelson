@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Administration.Resources;
 using Administration.ViewModel;
 
 namespace Administration.View
@@ -26,6 +27,19 @@ namespace Administration.View
             InitializeComponent();
             DataContext = new TableauBordVM();
 
+        }
+
+        public void LoadLabels()
+        {
+            label_Dashboard.Text = Resource.Dashboard;
+            label_Graph7Days.Content = Resource.Graph7Days;
+            label_TicketsOnly.Content = Resource.TicketsOnly;
+            label_SubscriptionOnly.Content = Resource.SubscriptionsOnly;
+            label_All.Content = Resource.All;
+            label_PlacesOccupied.Text = Resource.PlacesAvailable;
+            label_PlacesAvailable.Text = Resource.PlacesAvailable;
+            label_Day.Text = Resource.Day;
+            label_Hour.Text = Resource.Hour;    
         }
     }
 }

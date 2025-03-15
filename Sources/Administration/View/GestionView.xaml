@@ -32,7 +32,7 @@
                     <TabItem.Header >
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="100" >
                             <materialDesign:PackIcon Kind="AccountGroup" Width="50" Height="50" HorizontalAlignment="Center"/>
-                            <TextBlock  TextWrapping="Wrap" Text="tableau de bord" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="label_Users"  TextWrapping="Wrap"  HorizontalAlignment="Center"/>
                         </StackPanel>
                     </TabItem.Header>
 
@@ -144,7 +144,7 @@
                     </TabItem.Header>
 
                     <StackPanel Margin="20">
-                        <TextBlock Text="Paramètres de configuration" FontWeight="Bold" FontSize="40" 
+                        <Label x:Name="label_ListDirectors" FontWeight="Bold" FontSize="40" 
                                    HorizontalAlignment="Center"/>
                         <TextBlock Text="C'est la configuration la plus récente qui est appliquée à tous le système" FontWeight="Bold" HorizontalAlignment="Center"/>
 
@@ -169,11 +169,11 @@
                         </DataGrid>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                            <Button Content="Ajouter" Command="{Binding AjouterConfigurationCommand}" 
+                            <Button x:Name="label_Add" Command="{Binding AjouterConfigurationCommand}" 
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                      Width="100" Height="50"/>
 
-                            <Button Content="Supprimer" Command="{Binding SupprimerConfigurationCommand}" 
+                            <Button x:Name="label_Delete" Command="{Binding SupprimerConfigurationCommand}" 
                                     Style="{StaticResource MaterialDesignOutlinedButton}" 
                                     Visibility="{Binding ConfigurationSelectionnee, Converter={StaticResource NullToBooleanConverter}}"
                                     Margin="50,0,0,0" Width="100" Height="50"/> 

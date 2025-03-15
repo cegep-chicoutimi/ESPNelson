@@ -26,5 +26,10 @@ namespace Administration.View
             InitializeComponent();
             DataContext = new RapportsVM();
         }
+
+        public void LoadLabels()
+        {
+
+        }
     }
 }

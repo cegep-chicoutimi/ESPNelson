@@ -37,7 +37,7 @@ namespace ESPNelson.View
         }
 
         private AbonneView abonneView;
-        private VisiteurView visiteurView = new VisiteurView();
+        private VisiteurView visiteurView;
 
 
         public BorneEntreeView()

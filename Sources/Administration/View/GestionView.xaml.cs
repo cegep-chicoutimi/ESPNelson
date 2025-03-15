@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Administration.Resources;
 using Administration.ViewModel;
 
 namespace Administration.View
@@ -25,6 +26,14 @@ namespace Administration.View
         {
             InitializeComponent();
             DataContext = new GestionVM();
+        }
+
+        public void LoadLabels()
+        {
+            label_ListDirectors.Content = Resource.ListDirectors;
+            label_Add.Content = Resource.Add;
+            label_Delete.Content = Resource.Delete;
+            label_Users.Text = Resource.Users;  
         }
     }
 }

@@ -17,8 +17,8 @@
         </Grid.RowDefinitions>
 
         <!-- Barre contenant le titre de la page en haut -->
-        <DockPanel Grid.Row="0" Background="DarkBlue">
-            <TextBlock Text="Connexion" Foreground="White" FontSize="16"
+        <DockPanel Grid.Row="0" Background="DarkBlue" Margin="20,0">
+            <Label x:Name="label_Connection" Foreground="White" FontSize="20"
                      FontWeight="Bold" VerticalAlignment="Center" Margin="10" HorizontalAlignment="Center"/>
         </DockPanel>
 
@@ -27,18 +27,20 @@
                 <materialDesign:Card Margin="20" Padding="20" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="400">
                     <GroupBox Header="Connexion">
                         <StackPanel>
-                             <!--Nom d'utilisateur--> 
-                            <TextBox x:Name="nomUtilisateurBox" TextChanged="TextBox_TextChanged" Margin="0,10"
-                                     materialDesign:HintAssist.Hint="Nom d'utilisateur" Text="{Binding NomUtilisateur}"/>
+                            <!-- Nom d'utilisateur -->
+                            <TextBox x:Name="label_Username" TextChanged="TextBox_TextChanged" Margin="0,10"
+                                     materialDesign:HintAssist.Hint="{Binding NomUtilisateurHint}" 
+                                     Text="{Binding NomUtilisateur}"/>
 
-                             <!--Mot de passe--> 
-                            <PasswordBox x:Name="motDePasseBox" PasswordChanged="PasswordBox_PasswordChanged" Margin="0,10" materialDesign:HintAssist.Hint="Mot de passe"/>
+                            <!-- Mot de passe -->
+                            <PasswordBox x:Name="label_Password" PasswordChanged="PasswordBox_PasswordChanged" Margin="0,10"
+                                         materialDesign:HintAssist.Hint="{Binding MotDePasseHint}"/>
 
-                             <!--Bouton de connexion--> 
-                            <Button Content="Connexion" Command="{Binding LoginCommand}" Margin="0,20,0,10" HorizontalAlignment="Stretch" Cursor="Hand" IsDefault="True"/>
+                             <!--Bouton de connexion-->
+                            <Button x:Name="label_Connection2" Command="{Binding LoginCommand}" Margin="0,20,0,10" HorizontalAlignment="Stretch" Cursor="Hand" IsDefault="True"/>
 
-                             <!--Bouton pour réinitialiser le mot de passe--> 
-                            <Button Content="Réinitialiser le mot de passe" Command="{Binding ForgotPasswordCommand}" Margin="0,10" HorizontalAlignment="Stretch"/>
+                             <!--Bouton pour réinitialiser le mot de passe-->
+                            <Button x:Name="label_ResetPassword" Command="{Binding ForgotPasswordCommand}" Margin="0,10" HorizontalAlignment="Stretch"/>
                         </StackPanel>
                     </GroupBox>
                 </materialDesign:Card>

@@ -117,16 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tous (par défaut)</value>
+  </data>
+  <data name="Configurations" xml:space="preserve">
+    <value>Configurations</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Connexion</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Tableau de bord</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Jour</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="Graph7Days" xml:space="preserve">
+    <value>Graphique des tendances des revenus des 7 derniers jours</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Heure</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Langue</value>
   </data>
+  <data name="ListDirectors" xml:space="preserve">
+    <value>Liste des administrateurs</value>
+  </data>
   <data name="Management" xml:space="preserve">
     <value>Console de gestion</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="PlacesAvailable" xml:space="preserve">
+    <value>Places disponibles</value>
+  </data>
+  <data name="PlacesOccupied" xml:space="preserve">
+    <value>Places occupied</value>
+  </data>
+  <data name="PriceList" xml:space="preserve">
+    <value>Tarifications</value>
+  </data>
   <data name="reports" xml:space="preserve">
     <value>Section rapports</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Réinitialiser le mot de passe</value>
+  </data>
+  <data name="SubscriptionsOnly" xml:space="preserve">
+    <value>Abonnements seulement</value>
+  </data>
+  <data name="TicketsOnly" xml:space="preserve">
+    <value>Tickets seulement</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nom d'utilisateur</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Utilisateur</value>
   </data>
 </root>

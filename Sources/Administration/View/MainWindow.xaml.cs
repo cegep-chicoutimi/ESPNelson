@@ -51,6 +51,12 @@ namespace Administration.View
                 }
             }
         }
+
+        private Login login;
+        private TableauBordView tableauBordView;
+        private GestionView gestionView;    
+        private RapportsView rapportsView;  
+
         public NavigationService NavigationService { get; private set; }
 
         public MainWindow()
@@ -58,7 +64,21 @@ namespace Administration.View
             InitializeComponent();
             // Attendre que la fenêtre soit chargée avant d'initialiser le Frame
             this.Loaded += OnWindowLoaded;
+
+            login = new Login();
+            login.DataContext = new LoginVM();
+
+            tableauBordView = new TableauBordView();
+            tableauBordView.DataContext = new TableauBordView();
+
+            gestionView = new GestionView();
+            gestionView.DataContext = new GestionView();
+
+            rapportsView = new RapportsView();
+            rapportsView.DataContext = new RapportsView();
+
         }
+
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -103,8 +123,10 @@ namespace Administration.View
             label_reports.Text = Resource.reports;
 
             //Charge aussi les labels des autres page
-            //abonneView.LoadLabels();
-            //visiteurView.LoadLabels();
+            login.LoadLabels();
+            tableauBordView.LoadLabels();
+            gestionView.LoadLabels();
+            rapportsView.LoadLabels() ;
 
         }
 
@@ -145,15 +167,13 @@ namespace Administration.View
 
 
 
-                    //// Mise à jour des textes de la VM de AbonneView
-                    //if (abonneView.DataContext is AbonneVM viewModel)
-                    //{
-                    //    viewModel.AbonnementInfo = Resource.ValidTicketSubscription;
+                    // Mise à jour des textes hint de la VM de login
+                    if (login.DataContext is LoginVM viewModel)
+                    {
+                        viewModel.LoadLabels();
+                    }
 
-                    //    //voir aussi le dynamisme dans la traduction du message d'ouverture de la barrière
-
-                    //    viewModel.UpdateTicketInfoLanguage();
-                    //}
+                    //probablement pour d'autres View plus tard
 
                     // Enregistre la langue sélectionnée dans les paramètres de configuration
                     Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);

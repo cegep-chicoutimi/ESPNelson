@@ -61,11 +61,92 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ajouter.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tous (par défaut).
+        /// </summary>
+        internal static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Configurations.
+        /// </summary>
+        internal static string Configurations {
+            get {
+                return ResourceManager.GetString("Configurations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Connexion.
+        /// </summary>
+        internal static string Connection {
+            get {
+                return ResourceManager.GetString("Connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Tableau de bord.
         /// </summary>
         internal static string Dashboard {
             get {
                 return ResourceManager.GetString("Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Jour.
+        /// </summary>
+        internal static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Supprimer.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Modifier.
+        /// </summary>
+        internal static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Graphique des tendances des revenus des 7 derniers jours.
+        /// </summary>
+        internal static string Graph7Days {
+            get {
+                return ResourceManager.GetString("Graph7Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Heure.
+        /// </summary>
+        internal static string Hour {
+            get {
+                return ResourceManager.GetString("Hour", resourceCulture);
             }
         }
         
@@ -79,6 +160,15 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Liste des administrateurs.
+        /// </summary>
+        internal static string ListDirectors {
+            get {
+                return ResourceManager.GetString("ListDirectors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Console de gestion.
         /// </summary>
         internal static string Management {
@@ -88,11 +178,92 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mot de passe.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Places disponibles.
+        /// </summary>
+        internal static string PlacesAvailable {
+            get {
+                return ResourceManager.GetString("PlacesAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Places occupied.
+        /// </summary>
+        internal static string PlacesOccupied {
+            get {
+                return ResourceManager.GetString("PlacesOccupied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tarifications.
+        /// </summary>
+        internal static string PriceList {
+            get {
+                return ResourceManager.GetString("PriceList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Section rapports.
         /// </summary>
         internal static string reports {
             get {
                 return ResourceManager.GetString("reports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Réinitialiser le mot de passe.
+        /// </summary>
+        internal static string ResetPassword {
+            get {
+                return ResourceManager.GetString("ResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Abonnements seulement.
+        /// </summary>
+        internal static string SubscriptionsOnly {
+            get {
+                return ResourceManager.GetString("SubscriptionsOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tickets seulement.
+        /// </summary>
+        internal static string TicketsOnly {
+            get {
+                return ResourceManager.GetString("TicketsOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Nom d&apos;utilisateur.
+        /// </summary>
+        internal static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Utilisateur.
+        /// </summary>
+        internal static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
             }
         }
     }
