@@ -2,6 +2,9 @@
 using Administration.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +25,15 @@ namespace Administration.View
     /// </summary>
     public partial class Login : Page
     {
+
         public Login()
         {
             InitializeComponent();
             DataContext = new LoginVM();
+
             LoadLabels();
         }
+
 
         /// <summary>
         /// Charge les labels et met à jour leur texte en fonction de la langue sélectionnée.

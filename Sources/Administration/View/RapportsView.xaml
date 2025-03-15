@@ -12,28 +12,28 @@
 
     <DockPanel LastChildFill="True" Margin="10">
         <StackPanel DockPanel.Dock="Left" Width="250" Margin="0,0,20,0" VerticalAlignment="Center">
-            <DatePicker materialDesign:HintAssist.Hint="Date de début"
+            <DatePicker materialDesign:HintAssist.Hint="{Binding DateDebutHint}"
                         SelectedDate="{Binding DateDebut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                         FontSize="14"
                         Margin="0,0,0,60"/>
 
-            <DatePicker materialDesign:HintAssist.Hint="Date de fin"
+            <DatePicker materialDesign:HintAssist.Hint="{ Binding DateFinHint}"
                         SelectedDate="{Binding DateFin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                         FontSize="14"
                         Margin="0,0,0,60"/>
 
-            <Button Content="Générer le rapport" 
+            <Button x:Name="label_GenerateReport" 
                     Command="{Binding GenererRapportCommand}" 
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     FontSize="20"
                     Margin="0,0,0,50"
                     Height="75"
                     Background="Blue" 
-                Foreground="White"/>
+                Foreground="White" Click="Button_Click"/>
 
-            <Button Content="Exporter en PDF" 
+            <Button x:Name="label_ExportAsPDF"
                     Command="{Binding ExporterRapportCommand}" 
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     FontSize="20"

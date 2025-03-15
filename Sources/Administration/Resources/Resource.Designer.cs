@@ -133,6 +133,33 @@ namespace Administration.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à End date.
+        /// </summary>
+        internal static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Exporter le PDF.
+        /// </summary>
+        internal static string ExportAsPDF {
+            get {
+                return ResourceManager.GetString("ExportAsPDF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Genérer le rapport.
+        /// </summary>
+        internal static string GenerateReport {
+            get {
+                return ResourceManager.GetString("GenerateReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Graphique des tendances des revenus des 7 derniers jours.
         /// </summary>
         internal static string Graph7Days {
@@ -228,6 +255,15 @@ namespace Administration.Resources {
         internal static string ResetPassword {
             get {
                 return ResourceManager.GetString("ResetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Start date.
+        /// </summary>
+        internal static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
             }
         }
         

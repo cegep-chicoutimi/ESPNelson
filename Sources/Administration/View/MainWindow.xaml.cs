@@ -77,6 +77,20 @@ namespace Administration.View
             rapportsView = new RapportsView();
             rapportsView.DataContext = new RapportsView();
 
+            //Direct à l'ouverture de la fenêtre !
+            RessourceHelper.SetInitialLanguage();
+
+            Language = ConfigurationManager.AppSettings["language"];
+            SelectLanguage();
+
+          
+
+           
+
+
+            //C'est apres tout ceci qu'on Load les labels
+            LoadLabels();
+
         }
 
 
@@ -85,13 +99,6 @@ namespace Administration.View
             // Initialiser le Frame après le chargement de la fenêtre
             AfficherLogin(); // Toujours afficher Login au départ
             StartFadeInAnimation(); // Déclencher l'animation initiale
-
-            RessourceHelper.SetInitialLanguage();
-            LoadLabels();
-
-            //Direct à l'ouverture de la fenêtre !
-            Language = ConfigurationManager.AppSettings["language"];
-            SelectLanguage();
         }
 
 
@@ -166,11 +173,37 @@ namespace Administration.View
                     LoadLabels();
 
 
-
-                    // Mise à jour des textes hint de la VM de login
-                    if (login.DataContext is LoginVM viewModel)
+                    // Rafraîchir la page actuelle dans le Frame après un changement de langue
+                    if (MainFrame.Content is Page currentPage)
                     {
-                        viewModel.LoadLabels();
+                        Type currentPageType = currentPage.GetType();
+                        Page newPageInstance = (Page)Activator.CreateInstance(currentPageType);
+
+                        // Appliquer le DataContext à la nouvelle instance
+                        if (currentPage.DataContext != null)
+                        {
+                            newPageInstance.DataContext = currentPage.DataContext;
+                        }
+
+                        // Mise à jour des textes hint de la VM de login
+                        if (newPageInstance.GetType() == login.GetType())
+                        {
+                            if(newPageInstance.DataContext is LoginVM vm)
+                            {
+                                vm.LoadLabels();    
+                            }
+                        }
+
+                        // Mise à jour des textes hint de la VM de rapportsView
+                        if (newPageInstance.GetType() == rapportsView.GetType())
+                        {
+                            if (newPageInstance.DataContext is RapportsVM vm)
+                            {
+                                vm.LoadLabels();
+                            }
+                        }
+
+                        MainFrame.Navigate(newPageInstance);
                     }
 
                     //probablement pour d'autres View plus tard
@@ -237,19 +270,6 @@ namespace Administration.View
                 StartFadeInAnimation(); // Déclencher l'animation après le changement de page
             }
         }
-
-
-        ///// <summary>
-        ///// À revoir l'utilité de cette fonction dans ce cadre
-        ///// </summary>
-        //public void NavigateToLoginPage()
-        //{
-        //    Page loginPage = new Login();
-        //    loginPage.DataContext = new LoginVM();
-
-        //    MainFrame.NavigationService.RemoveBackEntry();
-        //    NavigationService.Navigate(loginPage);
-        //}
 
         private void StartFadeInAnimation()
         {

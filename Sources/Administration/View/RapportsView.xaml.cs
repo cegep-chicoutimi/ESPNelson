@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Administration.Resources;
 using Administration.ViewModel;
 
 namespace Administration.View
@@ -25,9 +26,17 @@ namespace Administration.View
         {
             InitializeComponent();
             DataContext = new RapportsVM();
+
+            LoadLabels();
         }
 
         public void LoadLabels()
+        {
+            label_GenerateReport.Content = Resource.GenerateReport;
+            label_ExportAsPDF.Content = Resource.ExportAsPDF;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

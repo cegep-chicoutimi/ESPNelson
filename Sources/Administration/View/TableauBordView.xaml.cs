@@ -27,6 +27,8 @@ namespace Administration.View
             InitializeComponent();
             DataContext = new TableauBordVM();
 
+            LoadLabels();
+
         }
 
         public void LoadLabels()

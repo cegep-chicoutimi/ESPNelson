@@ -26,6 +26,8 @@ namespace Administration.View
         {
             InitializeComponent();
             DataContext = new GestionVM();
+
+            LoadLabels();
         }
 
         public void LoadLabels()

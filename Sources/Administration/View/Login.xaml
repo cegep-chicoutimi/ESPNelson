@@ -8,7 +8,9 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       d:DataContext="{d:DesignInstance Type=viewmodel:LoginVM}"
       mc:Ignorable="d" 
-      Title="Login">
+      Title="Login"
+      MinWidth="640" MinHeight="480" Width="700" Height="500"
+      HorizontalAlignment="Center" VerticalAlignment="Center">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -24,23 +26,31 @@
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Grid>
-                <materialDesign:Card Margin="20" Padding="20" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="400">
+                <materialDesign:Card Margin="20" Padding="20" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                     MinWidth="400" Width="450" MaxWidth="500">
                     <GroupBox Header="Connexion">
                         <StackPanel>
                             <!-- Nom d'utilisateur -->
                             <TextBox x:Name="label_Username" TextChanged="TextBox_TextChanged" Margin="0,10"
                                      materialDesign:HintAssist.Hint="{Binding NomUtilisateurHint}" 
+                                     Width="300" MinWidth="250"
                                      Text="{Binding NomUtilisateur}"/>
 
                             <!-- Mot de passe -->
-                            <PasswordBox x:Name="label_Password" PasswordChanged="PasswordBox_PasswordChanged" Margin="0,10"
+                            <PasswordBox x:Name="label_Password" PasswordChanged="PasswordBox_PasswordChanged"
+                                         Margin="0,10" Width="300" MinWidth="250"
                                          materialDesign:HintAssist.Hint="{Binding MotDePasseHint}"/>
 
                              <!--Bouton de connexion-->
-                            <Button x:Name="label_Connection2" Command="{Binding LoginCommand}" Margin="0,20,0,10" HorizontalAlignment="Stretch" Cursor="Hand" IsDefault="True"/>
+                            <Button x:Name="label_Connection2" Command="{Binding LoginCommand}" Margin="0,20,0,10" 
+                                    HorizontalAlignment="Stretch" Cursor="Hand"
+                                    Width="300" MinWidth="250"
+                                    IsDefault="True"/>
 
                              <!--Bouton pour réinitialiser le mot de passe-->
-                            <Button x:Name="label_ResetPassword" Command="{Binding ForgotPasswordCommand}" Margin="0,10" HorizontalAlignment="Stretch"/>
+                            <Button x:Name="label_ResetPassword" Command="{Binding ForgotPasswordCommand}"
+                                    Margin="0,10" Width="300" MinWidth="250"
+                                    HorizontalAlignment="Stretch"/>
                         </StackPanel>
                     </GroupBox>
                 </materialDesign:Card>

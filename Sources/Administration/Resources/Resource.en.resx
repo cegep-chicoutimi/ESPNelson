@@ -141,6 +141,15 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="ExportAsPDF" xml:space="preserve">
+    <value>Export as PDF</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generate the report</value>
+  </data>
   <data name="Graph7Days" xml:space="preserve">
     <value>Graph showing revenue trends over the last 7 days</value>
   </data>
@@ -176,6 +185,9 @@ reports	Section rapports</value>
   </data>
   <data name="ResetPassword" xml:space="preserve">
     <value>ResetPassword</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
   </data>
   <data name="SubscriptionsOnly" xml:space="preserve">
     <value>Subscriptions only</value>

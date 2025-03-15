@@ -1,6 +1,7 @@
 ﻿using Administration.Data;
 using Administration.Data.Context;
 using Administration.Model;
+using Administration.Resources;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
@@ -25,10 +26,16 @@ namespace Administration.ViewModel
         private readonly AdministrationContext _dbContext;
 
         [ObservableProperty]
-        private DateTime dateDebut = DateTime.Now; // Date de début par défaut
+        private DateTime dateDebut = DateTime.Now; 
 
         [ObservableProperty]
-        private DateTime dateFin = DateTime.Now; // Date de fin par défaut
+        private DateTime dateFin = DateTime.Now; 
+        // Propriétés pour les textes dynamiques
+        [ObservableProperty]
+        private string? _dateDebutHint;
+
+        [ObservableProperty]
+        private string? _dateFinHint;
 
         [ObservableProperty]
         private string rapportInformations; // Propriété pour stocker les informations du rapport
@@ -48,6 +55,18 @@ namespace Administration.ViewModel
 
             GenererRapportCommand = new RelayCommand(GenererRapport);
             ExporterRapportCommand = new RelayCommand(ExporterRapport);
+
+            // Charge les labels avec la langue par défaut
+            LoadLabels();
+        }
+
+        /// <summary>
+        /// Charge les labels en fonction de la langue sélectionnée.
+        /// </summary>
+        public void LoadLabels()
+        {
+            DateDebutHint = Resource.StartDate;
+            DateFinHint = Resource.EndDate; 
         }
 
         private void GenererRapport()
