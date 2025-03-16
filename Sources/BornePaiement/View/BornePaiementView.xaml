@@ -2,13 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Borne d'Entrée"
+        Title="Borne de payement"
         WindowStartupLocation="CenterScreen"
         Width="640" Height="480"
         MinWidth="640" MinHeight="480"
         Background="#009A44"
         ResizeMode="CanResize"
-        KeyDown="Page_KeyDown">
+        KeyDown="Page_KeyDown"
+        x:Name="label_PayementStation1">
 
     <Window.Resources>
         <!-- Animation pour la transition -->
@@ -25,14 +26,15 @@
             <StackPanel Orientation="Horizontal">
                 <Label x:Name="label_PayementStation" Foreground="Blue"  FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                 <Label x:Name="label_Language" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                <ComboBox x:Name="languageComboBox" Width="100" Margin="0,0,20,0">
+                <ComboBox x:Name="languageComboBox" 
+                          SelectionChanged="LanguageComboBox_SelectionChanged"
+                          Width="100" Margin="10,0,0,0" Background="White" FontSize="20">
                     <ComboBoxItem Content="Français" Tag="fr"/>
                     <ComboBoxItem Content="English" Tag="en"/>
                 </ComboBox>
             </StackPanel>
         </Border>
 
-        <!-- mode visiteur uniquement -->
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -52,18 +54,18 @@
           
                 <Grid Grid.Row="1" Background="White" Margin="0,10" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <!-- Colonne pour la carte d'informations -->
-                        <ColumnDefinition Width="Auto"/>
-                        <!-- Colonne pour les boutons -->
-                    </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
                     <!-- Carte pour afficher les informations du ticket -->
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <TextBlock Text="{Binding TicketInfo}" FontSize="20" TextAlignment="Center" Margin="0,0,0,5"/>
-                        <TextBlock Text="⛔ Ticket invalide" FontSize="20" Foreground="Red" TextAlignment="Center" 
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="{Binding TicketInfo}"
+                                   TextAlignment="Center" HorizontalAlignment="Center" 
+                                   Margin="0,0,0,5"  FontSize="20"/>
+                        <Label x:Name="label_InValidTicket"  FontSize="20" Foreground="Red" HorizontalAlignment="Center"
                         Visibility="{Binding TicketInvalide, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                            <TextBlock Text="✅ Ticket valide" FontSize="20" Foreground="Green" TextAlignment="Center" 
+                            <Label x:Name="label_ValidTicket"  FontSize="20" Foreground="Green" HorizontalAlignment="Center"
                         Visibility="{Binding TicketValide, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                         <!-- Scanner invisible -->
@@ -80,7 +82,7 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="CreditCard" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBlock Text="Simuler le paiement" VerticalAlignment="Center"/>
+                            <Label x:Name="label_SimulatePayment"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -92,7 +94,7 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountPlus" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBlock Text="S'abonner" VerticalAlignment="Center"/>
+                            <Label x:Name="label_Subscribe"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 
@@ -105,7 +107,7 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Receipt" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBlock Text="Générer le reçu" VerticalAlignment="Center"/>
+                            <Label x:Name="label_GenerateReceipt" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>

@@ -117,22 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Amount" xml:space="preserve">
+    <value>Montant</value>
+  </data>
+  <data name="ArrivalTime" xml:space="preserve">
+    <value>Temps d'arrivée</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ConfirmAndPay" xml:space="preserve">
+    <value>Confirmer et payer</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Durée</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Courriel</value>
+  </data>
+  <data name="EnterEmailAndSelectSubscription" xml:space="preserve">
+    <value>Veuillez entrer votre email et sélectionner un type d'abonnement.</value>
+  </data>
+  <data name="EnterYourPIN" xml:space="preserve">
+    <value>Entrez votre NIP</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="Fare" xml:space="preserve">
+    <value>Tarif</value>
+  </data>
   <data name="GenerateReceipt" xml:space="preserve">
     <value>Générer le reçu</value>
+  </data>
+  <data name="GenerateSubscriptionTicket" xml:space="preserve">
+    <value>Générer un ticket d'abonnement</value>
+  </data>
+  <data name="IncorrectPIN" xml:space="preserve">
+    <value>❌ NIP incorrect. Veuillez réessayer.</value>
+  </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Veuillez entrer une adresse avec un format valide.</value>
+  </data>
+  <data name="InvalidOrNotFoundTicket" xml:space="preserve">
+    <value>❌ Ticket invalide ou introuvable.</value>
+  </data>
+  <data name="InvalidTicket" xml:space="preserve">
+    <value>Ticket invalid</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Langue</value>
   </data>
+  <data name="NoPaymentInfo" xml:space="preserve">
+    <value>Aucune information de paiement disponible pour générer le reçu.</value>
+  </data>
+  <data name="ParkingTimeExceeded" xml:space="preserve">
+    <value>⛔ Durée de stationnement dépassée ! Contactez l'administration.</value>
+  </data>
   <data name="PayementStation" xml:space="preserve">
     <value>BORNE DE PAIEMENT</value>
   </data>
+  <data name="PaymentError" xml:space="preserve">
+    <value>❌ Erreur lors du paiement : {0}</value>
+  </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>"✅ Paiement effectué !\nMontant : {0:C}\nTaxes : {1:C}\nDurée : {2}h"</value>
+  </data>
+  <data name="ReceiptGenerated" xml:space="preserve">
+    <value>Reçu généré avec succès !</value>
+  </data>
   <data name="ScanningInstructions" xml:space="preserve">
-    <value>Please scan your parking ticket</value>
+    <value>Veuillez scanner votre ticket de parking</value>
+  </data>
+  <data name="ScanTicketFirst" xml:space="preserve">
+    <value>Veuillez d'abord scanner un ticket.</value>
   </data>
   <data name="SimulatePayment" xml:space="preserve">
     <value>Simuler le paiement</value>
   </data>
   <data name="Subscribe" xml:space="preserve">
     <value>S'abonner</value>
+  </data>
+  <data name="Subscription" xml:space="preserve">
+    <value>Souscription à un abonnement</value>
+  </data>
+  <data name="SubscriptionError" xml:space="preserve">
+    <value>Erreur lors de la souscription : {0}</value>
+  </data>
+  <data name="SubscriptionSuccess" xml:space="preserve">
+    <value>Abonnement souscrit avec succès !\nType : {0}\nDate de début : {1:dd/MM/yyyy}\nDate de fin : {2:dd/MM/yyyy}\nMontant : {3:C}</value>
+  </data>
+  <data name="SubscriptionTicketGenerated" xml:space="preserve">
+    <value>Ticket d'abonnement généré avec succès !</value>
+  </data>
+  <data name="SubscriptionTicketGenerated1" xml:space="preserve">
+    <value>Ticket d'abonnement généré avec succès !</value>
+  </data>
+  <data name="SubscriptionType" xml:space="preserve">
+    <value>Type d'abonnement</value>
+  </data>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Succès</value>
+  </data>
+  <data name="TicketAlreadyConverted" xml:space="preserve">
+    <value>Ce ticket a déjà été converti en abonnement.</value>
+  </data>
+  <data name="TicketAlreadyPaid" xml:space="preserve">
+    <value>Ce ticket a déjà été payé.</value>
+  </data>
+  <data name="ValidTicket" xml:space="preserve">
+    <value>Ticket valid</value>
   </data>
 </root>

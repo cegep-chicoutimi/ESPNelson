@@ -117,22 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="ArrivalTime" xml:space="preserve">
+    <value>Arrival time</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmAndPay" xml:space="preserve">
+    <value>Confirm and pay</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnterEmailAndSelectSubscription" xml:space="preserve">
+    <value>Please enter your email and select a subscription type.</value>
+  </data>
+  <data name="EnterYourPIN" xml:space="preserve">
+    <value>Enter your PIN</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Fare" xml:space="preserve">
+    <value>Fare</value>
+  </data>
   <data name="GenerateReceipt" xml:space="preserve">
     <value>Generate receipt</value>
+  </data>
+  <data name="GenerateSubscriptionTicket" xml:space="preserve">
+    <value>Generate a subscription ticket</value>
+  </data>
+  <data name="IncorrectPIN" xml:space="preserve">
+    <value>❌ Incorrect PIN. Please try again.</value>
+  </data>
+  <data name="InvalidEmailFormat" xml:space="preserve">
+    <value>Please enter an address in a valid format.</value>
+  </data>
+  <data name="InvalidOrNotFoundTicket" xml:space="preserve">
+    <value>❌ Invalid or not found ticket.</value>
+  </data>
+  <data name="InvalidTicket" xml:space="preserve">
+    <value>Invalid ticket</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="NoPaymentInfo" xml:space="preserve">
+    <value>No payment information available to generate the receipt.</value>
+  </data>
+  <data name="ParkingTimeExceeded" xml:space="preserve">
+    <value>⛔ Parking time exceeded! Contact the administration.</value>
+  </data>
   <data name="PayementStation" xml:space="preserve">
     <value>PAYMENT STATION</value>
   </data>
+  <data name="PaymentError" xml:space="preserve">
+    <value>❌ Payment error: {0}</value>
+  </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>✅ Payment completed!\nAmount: {0:C}\nTaxes: {1:C}\nDuration: {2}h</value>
+  </data>
+  <data name="ReceiptGenerated" xml:space="preserve">
+    <value>Receipt successfully generated!</value>
+  </data>
   <data name="ScanningInstructions" xml:space="preserve">
     <value>Scanning your parking or season ticket</value>
+  </data>
+  <data name="ScanTicketFirst" xml:space="preserve">
+    <value>Please scan a ticket first.</value>
   </data>
   <data name="SimulatePayment" xml:space="preserve">
     <value>Simulate payment</value>
   </data>
   <data name="Subscribe" xml:space="preserve">
     <value>Subscribe</value>
+  </data>
+  <data name="Subscription" xml:space="preserve">
+    <value>Subscription</value>
+  </data>
+  <data name="SubscriptionError" xml:space="preserve">
+    <value>Subscription error: {0}</value>
+  </data>
+  <data name="SubscriptionSuccess" xml:space="preserve">
+    <value>Subscription successfully subscribed!\nType: {0}\nStart date: {1:dd/MM/yyyy}\nEnd date: {2:dd/MM/yyyy}\nAmount: {3:C}</value>
+  </data>
+  <data name="SubscriptionTicketGenerated" xml:space="preserve">
+    <value>Subscription ticket successfully generated!</value>
+  </data>
+  <data name="SubscriptionTicketGenerated1" xml:space="preserve">
+    <value>Subscription ticket successfully generated!</value>
+  </data>
+  <data name="SubscriptionType" xml:space="preserve">
+    <value>Subscription type</value>
+  </data>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="TicketAlreadyConverted" xml:space="preserve">
+    <value>This ticket has already been converted into a subscription.</value>
+  </data>
+  <data name="TicketAlreadyPaid" xml:space="preserve">
+    <value>This ticket has already been paid.</value>
+  </data>
+  <data name="ValidTicket" xml:space="preserve">
+    <value>Valid ticket</value>
   </data>
 </root>

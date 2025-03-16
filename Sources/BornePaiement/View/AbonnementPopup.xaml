@@ -4,20 +4,19 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:BornePaiement.View"
         xmlns:vm="clr-namespace:BornePaiement.ViewModel"
-        Title="Souscription à un abonnement" Height="350" Width="400"
+        Height="450" Width="400"
         WindowStartupLocation="CenterScreen"
-        Background="LightGreen">
+        Background="LightGreen"
+        x:Name="label_Subscription">
+    
     <Grid Margin="20">
         <StackPanel VerticalAlignment="Center">
             <StackPanel
-                Visibility="{Binding InfoAbonnementVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                >
-                <!-- Champ pour l'email -->
-                <TextBlock Text="Email :" FontSize="16" Margin="0,0,0,10"/>
+                Visibility="{Binding InfoAbonnementVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Label x:Name="label_Email" FontSize="16" Margin="0,0,0,10"/>
                 <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" FontSize="16" Margin="0,0,0,20"/>
 
-                <!-- Liste déroulante pour le type d'abonnement -->
-                <TextBlock Text="Type d'abonnement :" FontSize="16" Margin="0,0,0,10"/>
+                <Label x:Name="label_SubscriptionType" FontSize="16" Margin="0,0,0,10"/>
                 <ComboBox ItemsSource="{Binding TypesAbonnement}" SelectedItem="{Binding TypeAbonnement}" FontSize="16" Margin="0,0,0,20"/>
             </StackPanel>
            
@@ -31,12 +30,12 @@
                     Style="{StaticResource MaterialDesignRaisedButton}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="CreditCard" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <TextBlock Text="Confirmer et payer" VerticalAlignment="Center"/>
+                    <Label x:Name="label_ConfirmAndPay" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
 
             <!-- Bouton Générer un ticket d'abonnement -->
-            <Button Content="Générer un ticket d'abonnement" FontSize="16" FontWeight="Bold"
+            <Button x:Name="label_GenerateSubscriptionTicket" FontSize="16" FontWeight="Bold"
                     BorderBrush="Blue" BorderThickness="2"
                     HorizontalAlignment="Center" 
                     Height="150"

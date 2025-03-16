@@ -8,18 +8,20 @@ using PdfSharp.Pdf;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using BornePaiement.Resources;
+using System.Reflection.Metadata;
 
 namespace BornePaiement.ViewModel
 {
     public partial class BornePaiementVM : ObservableObject
     {
-        [ObservableProperty] private bool ticketValide = false;  // ✅ Pour gérer l'affichage dynamique
+        [ObservableProperty] private bool ticketValide = false;  
         [ObservableProperty] private bool ticketInvalide = false;
         [ObservableProperty] private string ticketInfo;
         [ObservableProperty] private bool peutSabonner = false;
         [ObservableProperty] private bool peutSimuler = false;
 
-        private string ticketScanne = ""; // 🔹 Stocke temporairement le scan
+        public string ticketScanne = ""; 
 
         [ObservableProperty]
         private bool paiementEffectue = false;
@@ -54,6 +56,11 @@ namespace BornePaiement.ViewModel
         [ObservableProperty]
         private bool afficherBoutonTicketAbonnement;
 
+        private decimal montantTicket = 0;
+        private double dureeTicket= 0;
+        private string tarificationTicket = "";
+
+
         public IRelayCommand ConfirmerPaiementCommand { get; }
         public IRelayCommand GenererRecuCommand { get; }
         public IRelayCommand SouscrireAbonnementCommand { get; }
@@ -77,12 +84,22 @@ namespace BornePaiement.ViewModel
             // Afficher une MessageBox pour les cas spécifiques
             if (estPaye)
             {
-                MessageBox.Show("Ce ticket a déjà été payé.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                     Resource.TicketAlreadyPaid,
+                     "Information",
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Information
+                );
                 return;
             }
             else if (estConverti)
             {
-                MessageBox.Show("Ce ticket a déjà été converti en abonnement.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                         Resource.TicketAlreadyConverted,
+                         "Information",
+                         MessageBoxButton.OK,
+                         MessageBoxImage.Information
+                     );
                 return;
             }
 
@@ -96,14 +113,14 @@ namespace BornePaiement.ViewModel
                 if (dureeDepassee)
                 {
                     // Cas de dépassement de durée
-                    TicketInfo = "⛔ Durée de stationnement dépassée ! Contactez l'administration.";
+                    TicketInfo = Resource.ParkingTimeExceeded;
                     TicketInvalide = true;
                     TicketValide = false;
                 }
                 else
                 {
                     // Cas d'erreur inconnue
-                    TicketInfo = "❌ Ticket invalide ou introuvable.";
+                    TicketInfo = Resource.InvalidOrNotFoundTicket;
                     TicketInvalide = true;
                     TicketValide = false;
                 }
@@ -111,7 +128,8 @@ namespace BornePaiement.ViewModel
             else if (montant >= 0)
             {
                 // Cas normal : ticket valide
-                TicketInfo = $"Montant : {montant:C} $\n Temps d'arrivée: {tempsArrivee}\nDurée : {duree}h\nTarif : {tarification}";
+                TicketInfo = $"{Resource.Amount} : {montant:C} $\n {Resource.ArrivalTime}:" +
+                    $" {tempsArrivee}\n{Resource.Duration} : {duree}h\n{Resource.Fare} : {tarification}";
                 TicketValide = true;
                 TicketInvalide = false;
                 ticketScanne = ticketId;
@@ -119,8 +137,30 @@ namespace BornePaiement.ViewModel
                 //Rendre visble les deux boutons
                 PeutSimuler = true;
                 PeutSabonner = true;
+
+                //Pour le changmenet de langue
+                montantTicket = montant;
+                dureeTicket = duree;
+                tarificationTicket = tarification;  
+
             }
 
+        }
+
+
+        public void UpdateTicketInfo()
+        {
+            if (TicketValide)
+            {
+                // Recalculer le contenu de TicketInfo en fonction de la langue actuelle
+                TicketInfo = $"{Resource.Amount} : {montantTicket:C} $\n {Resource.ArrivalTime}:" +
+                   $" {tempsArrivee}\n{Resource.Duration} : {dureeTicket}h\n{Resource.Fare} : {tarificationTicket}";
+            }
+            else if (TicketInvalide)
+            {
+                // Mettre à jour le message d'erreur en fonction de la langue actuelle
+                TicketInfo = Resource.InvalidOrNotFoundTicket;
+            }
         }
 
         private async Task ConfirmerPaiement()
@@ -139,11 +179,17 @@ namespace BornePaiement.ViewModel
 
                     if (success)
                     {
-                        TicketInfo = $"✅ Paiement effectué !\nMontant : {montantAvecTaxes:C}\nTaxes : {taxes:C}\nDurée : {Math.Round((tempsSortie - tempsArrivee).Value.TotalHours, 2)}h";
+                        TicketInfo = string.Format(
+                                    Resource.PaymentSuccess,
+                                    montantAvecTaxes,
+                                    taxes,
+                                    Math.Round((tempsSortie - tempsArrivee).Value.TotalHours, 2)
+                                );
+
                         PaiementEffectue = true;
                         AfficherBoutonRecu = true;
 
-                        PeutSabonner = false; //Le payement étant effectué, il ne doit oavoir la possibilité de s'abonner
+                        PeutSabonner = false; //Le payement étant effectué, il ne doit  pas avoir la possibilité de s'abonner
                         PeutSimuler = false;    //Ne pas lui donner une autre occasion de simuler 
 
                         // Informations pour le reçu
@@ -153,7 +199,7 @@ namespace BornePaiement.ViewModel
                     }
                     else
                     {
-                        TicketInfo = $"❌ Erreur lors du paiement : {message}";
+                        TicketInfo = string.Format(Resource.PaymentError, message);
                         PaiementEffectue = false;
                         AfficherBoutonRecu = false;
 
@@ -163,7 +209,12 @@ namespace BornePaiement.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("❌ NIP incorrect. Veuillez réessayer.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(
+                                Resource.IncorrectPIN,
+                                Resource.ErrorTitle,
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning
+                            );
                 }
             }
         }
@@ -174,7 +225,12 @@ namespace BornePaiement.ViewModel
         {
             if (TempsArrivee == null || TempsSortie == null)
             {
-                MessageBox.Show("Aucune information de paiement disponible pour générer le reçu.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                         Resource.NoPaymentInfo,
+                         Resource.ErrorTitle,
+                         MessageBoxButton.OK,
+                         MessageBoxImage.Error
+                );
                 return;
             }
 
@@ -234,18 +290,26 @@ namespace BornePaiement.ViewModel
 
             // Ouvrir le PDF généré
             Process.Start(new ProcessStartInfo(pdfFilePath) { UseShellExecute = true });
-            MessageBox.Show("Reçu généré avec succès !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(
+                     Resource.ReceiptGenerated,
+                     "Information",
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Information
+                 );
         }
 
         private async Task SouscrireAbonnement()
         {
             if (string.IsNullOrEmpty(ticketScanne))
             {
-                MessageBox.Show("Veuillez d'abord scanner un ticket.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                     Resource.ScanTicketFirst,
+                     Resource.ErrorTitle,
+                     MessageBoxButton.OK,
+                     MessageBoxImage.Error
+                 );
                 return;
             }
-
-
 
             // Créer et afficher la fenêtre contextuelle
             var popupVM = new AbonnementPopupVM(ticketScanne);
@@ -257,11 +321,7 @@ namespace BornePaiement.ViewModel
             popup.ShowDialog();
         }
 
-        private async Task GenererTicketAbonnement()
-        {
-            // Logique pour générer le ticket d'abonnement
-            MessageBox.Show("Ticket d'abonnement généré avec succès !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+
     }
 }
 

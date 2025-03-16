@@ -61,11 +61,146 @@ namespace BornePaiement.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Montant.
+        /// </summary>
+        internal static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Temps d&apos;arrivée.
+        /// </summary>
+        internal static string ArrivalTime {
+            get {
+                return ResourceManager.GetString("ArrivalTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Annuler.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirmer et payer.
+        /// </summary>
+        internal static string ConfirmAndPay {
+            get {
+                return ResourceManager.GetString("ConfirmAndPay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Durée.
+        /// </summary>
+        internal static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Courriel.
+        /// </summary>
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez entrer votre email et sélectionner un type d&apos;abonnement..
+        /// </summary>
+        internal static string EnterEmailAndSelectSubscription {
+            get {
+                return ResourceManager.GetString("EnterEmailAndSelectSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Entrez votre NIP.
+        /// </summary>
+        internal static string EnterYourPIN {
+            get {
+                return ResourceManager.GetString("EnterYourPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tarif.
+        /// </summary>
+        internal static string Fare {
+            get {
+                return ResourceManager.GetString("Fare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Générer le reçu.
         /// </summary>
         internal static string GenerateReceipt {
             get {
                 return ResourceManager.GetString("GenerateReceipt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Générer un ticket d&apos;abonnement.
+        /// </summary>
+        internal static string GenerateSubscriptionTicket {
+            get {
+                return ResourceManager.GetString("GenerateSubscriptionTicket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ❌ NIP incorrect. Veuillez réessayer..
+        /// </summary>
+        internal static string IncorrectPIN {
+            get {
+                return ResourceManager.GetString("IncorrectPIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez entrer une adresse avec un format valide..
+        /// </summary>
+        internal static string InvalidEmailFormat {
+            get {
+                return ResourceManager.GetString("InvalidEmailFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ❌ Ticket invalide ou introuvable..
+        /// </summary>
+        internal static string InvalidOrNotFoundTicket {
+            get {
+                return ResourceManager.GetString("InvalidOrNotFoundTicket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ticket invalid.
+        /// </summary>
+        internal static string InvalidTicket {
+            get {
+                return ResourceManager.GetString("InvalidTicket", resourceCulture);
             }
         }
         
@@ -79,6 +214,24 @@ namespace BornePaiement.Resources {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Aucune information de paiement disponible pour générer le reçu..
+        /// </summary>
+        internal static string NoPaymentInfo {
+            get {
+                return ResourceManager.GetString("NoPaymentInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ⛔ Durée de stationnement dépassée ! Contactez l&apos;administration..
+        /// </summary>
+        internal static string ParkingTimeExceeded {
+            get {
+                return ResourceManager.GetString("ParkingTimeExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à BORNE DE PAIEMENT.
         /// </summary>
         internal static string PayementStation {
@@ -88,11 +241,47 @@ namespace BornePaiement.Resources {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Please scan your parking ticket.
+        ///   Recherche une chaîne localisée semblable à ❌ Erreur lors du paiement : {0}.
+        /// </summary>
+        internal static string PaymentError {
+            get {
+                return ResourceManager.GetString("PaymentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à &quot;✅ Paiement effectué !\nMontant : {0:C}\nTaxes : {1:C}\nDurée : {2}h&quot;.
+        /// </summary>
+        internal static string PaymentSuccess {
+            get {
+                return ResourceManager.GetString("PaymentSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reçu généré avec succès !.
+        /// </summary>
+        internal static string ReceiptGenerated {
+            get {
+                return ResourceManager.GetString("ReceiptGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez scanner votre ticket de parking.
         /// </summary>
         internal static string ScanningInstructions {
             get {
                 return ResourceManager.GetString("ScanningInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez d&apos;abord scanner un ticket..
+        /// </summary>
+        internal static string ScanTicketFirst {
+            get {
+                return ResourceManager.GetString("ScanTicketFirst", resourceCulture);
             }
         }
         
@@ -111,6 +300,96 @@ namespace BornePaiement.Resources {
         internal static string Subscribe {
             get {
                 return ResourceManager.GetString("Subscribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Souscription à un abonnement.
+        /// </summary>
+        internal static string Subscription {
+            get {
+                return ResourceManager.GetString("Subscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Erreur lors de la souscription : {0}.
+        /// </summary>
+        internal static string SubscriptionError {
+            get {
+                return ResourceManager.GetString("SubscriptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Abonnement souscrit avec succès !\nType : {0}\nDate de début : {1:dd/MM/yyyy}\nDate de fin : {2:dd/MM/yyyy}\nMontant : {3:C}.
+        /// </summary>
+        internal static string SubscriptionSuccess {
+            get {
+                return ResourceManager.GetString("SubscriptionSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ticket d&apos;abonnement généré avec succès !.
+        /// </summary>
+        internal static string SubscriptionTicketGenerated {
+            get {
+                return ResourceManager.GetString("SubscriptionTicketGenerated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ticket d&apos;abonnement généré avec succès !.
+        /// </summary>
+        internal static string SubscriptionTicketGenerated1 {
+            get {
+                return ResourceManager.GetString("SubscriptionTicketGenerated1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Type d&apos;abonnement.
+        /// </summary>
+        internal static string SubscriptionType {
+            get {
+                return ResourceManager.GetString("SubscriptionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Succès.
+        /// </summary>
+        internal static string SuccessTitle {
+            get {
+                return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce ticket a déjà été converti en abonnement..
+        /// </summary>
+        internal static string TicketAlreadyConverted {
+            get {
+                return ResourceManager.GetString("TicketAlreadyConverted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ce ticket a déjà été payé..
+        /// </summary>
+        internal static string TicketAlreadyPaid {
+            get {
+                return ResourceManager.GetString("TicketAlreadyPaid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Ticket valid.
+        /// </summary>
+        internal static string ValidTicket {
+            get {
+                return ResourceManager.GetString("ValidTicket", resourceCulture);
             }
         }
     }

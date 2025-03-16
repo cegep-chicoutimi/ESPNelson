@@ -16,6 +16,7 @@ using System.Windows;
 using ZXing.Common;
 using ZXing;
 using ESPNelson.Resources;
+using Microsoft.Win32;
 
 namespace ESPNelson.ViewModel
 {
@@ -24,7 +25,6 @@ namespace ESPNelson.ViewModel
     /// </summary>
     public partial class VisiteurVM : ObservableObject
     {
-        private const string PdfSavePath = "Tickets";
         private static readonly string LogoPath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName, "img", "logo_ciuss.jpg");
 
         [ObservableProperty]
@@ -139,52 +139,68 @@ namespace ESPNelson.ViewModel
                 return;
             }
 
-            if (!Directory.Exists(PdfSavePath))
-                Directory.CreateDirectory(PdfSavePath);
+            // Créer un nouveau document PDF
+            PdfDocument document = new PdfDocument();
 
-            string pdfFilePath = Path.Combine(PdfSavePath, $"Ticket_{TicketActuel.Id}.pdf");
-            using (PdfDocument document = new PdfDocument())
+            // Ajouter une page au document
+            PdfPage page = document.AddPage();
+            page.Width = XUnit.FromMillimeter(90); // Format ticket de stationnement
+            page.Height = XUnit.FromMillimeter(170);
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont fontTitle = new XFont("Arial", 15);
+            XFont fontNormal = new XFont("Arial", 12);
+
+            // Charge et dessiner le logo
+            if (File.Exists(LogoPath))
             {
-                PdfPage page = document.AddPage();
-                page.Width = XUnit.FromMillimeter(90); // Format ticket de stationnement
-                page.Height = XUnit.FromMillimeter(170);
-                XGraphics gfx = XGraphics.FromPdfPage(page);
-                XFont fontTitle = new XFont("Arial", 15);
-                XFont fontNormal = new XFont("Arial", 12);
-
-                // Charge et dessiner le logo
-                if (File.Exists(LogoPath))
-                {
-                    XImage logo = XImage.FromFile(LogoPath);
-                    gfx.DrawImage(logo, (page.Width.Point - 150) / 2, (page.Height.Point / 2) - 110, 150, 150);
-                }
-
-               
-                gfx.DrawString("Hôpital de Chicoutimi", fontTitle, XBrushes.DarkBlue, 
-                    new XPoint((page.Width.Point - gfx.MeasureString("Hôpital de Chicoutimi", fontTitle).Width) / 2, ((page.Height.Point / 2) - 100) * 2));
-
-               
-                gfx.DrawString($"ID du ticket: {TicketActuel.Id}", fontNormal, XBrushes.DarkGreen, 
-                    new XPoint((page.Width.Point - gfx.MeasureString($"ID du ticket: {TicketActuel.Id}", fontNormal).Width) / 2, ((page.Height.Point / 2) - 100) * 2 + 40));
-
-                gfx.DrawString($"Date et Heure d'Arrivée: {TicketActuel.TempsArrive:dd/MM/yyyy HH:mm:ss}", fontNormal, XBrushes.DarkBlue, 
-                    new XPoint((page.Width.Point - gfx.MeasureString($"Date et Heure d'Arrivée: {TicketActuel.TempsArrive:dd/MM/yyyy HH:mm:ss}", fontNormal).Width) / 2, ((page.Height.Point / 2) - 100) * 2 + 70));
-
-                // Dessiner le code-barres en haut et en bas du ticket
-                using (MemoryStream memory = new MemoryStream())
-                {
-                    BarcodeImage.StreamSource.Position = 0;
-                    BarcodeImage.StreamSource.CopyTo(memory);
-                    memory.Position = 0;
-                    XImage barcodeXImage = XImage.FromStream(memory);
-                    gfx.DrawImage(barcodeXImage, (page.Width.Point - 300) / 2, 20, 300, 100);
-                    gfx.DrawImage(barcodeXImage, (page.Width.Point - 300) / 2, page.Height.Point - 120, 300, 100);
-                }
-
-                document.Save(pdfFilePath);
+                XImage logo = XImage.FromFile(LogoPath);
+                gfx.DrawImage(logo, (page.Width.Point - 150) / 2, (page.Height.Point / 2) - 110, 150, 150);
             }
-            Console.WriteLine($"✅ PDF généré avec succès : {pdfFilePath}");
-            Process.Start(new ProcessStartInfo(pdfFilePath) { UseShellExecute = true });
+
+            // Ajouter le texte au PDF
+            gfx.DrawString("Hôpital de Chicoutimi", fontTitle, XBrushes.DarkBlue,
+                new XPoint((page.Width.Point - gfx.MeasureString("Hôpital de Chicoutimi", fontTitle).Width) / 2, ((page.Height.Point / 2) - 100) * 2));
+
+            gfx.DrawString($"ID du ticket: {TicketActuel.Id}", fontNormal, XBrushes.DarkGreen,
+                new XPoint((page.Width.Point - gfx.MeasureString($"ID du ticket: {TicketActuel.Id}", fontNormal).Width) / 2, ((page.Height.Point / 2) - 100) * 2 + 40));
+
+            gfx.DrawString($"Date et Heure d'Arrivée: {TicketActuel.TempsArrive:dd/MM/yyyy HH:mm:ss}", fontNormal, XBrushes.DarkBlue,
+                new XPoint((page.Width.Point - gfx.MeasureString($"Date et Heure d'Arrivée: {TicketActuel.TempsArrive:dd/MM/yyyy HH:mm:ss}", fontNormal).Width) / 2, ((page.Height.Point / 2) - 100) * 2 + 70));
+
+            // Dessiner le code-barres en haut et en bas du ticket
+            using (MemoryStream memory = new MemoryStream())
+            {
+                BarcodeImage.StreamSource.Position = 0;
+                BarcodeImage.StreamSource.CopyTo(memory);
+                memory.Position = 0;
+                XImage barcodeXImage = XImage.FromStream(memory);
+                gfx.DrawImage(barcodeXImage, (page.Width.Point - 300) / 2, 20, 300, 100);
+                gfx.DrawImage(barcodeXImage, (page.Width.Point - 300) / 2, page.Height.Point - 120, 300, 100);
+            }
+
+            // Proposer à l'utilisateur de sauvegarder le fichier
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Fichiers PDF (*.pdf)|*.pdf", // Filtre pour les fichiers PDF
+                FileName = $"Ticket_{TicketActuel.Id}.pdf", // Nom par défaut du fichier
+                Title = "Enregistrer le rapport PDF" // Titre de la boîte de dialogue
+            };
+
+            if (saveFileDialog.ShowDialog() == true) // Si l'utilisateur clique sur "Enregistrer"
+            {
+                // Sauvegarder le document PDF dans un MemoryStream
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    document.Save(stream, false); // Sauvegarder le document dans le MemoryStream
+                    stream.Position = 0; // Réinitialiser la position du flux
+
+                    // Écrire le contenu du MemoryStream dans le fichier sélectionné
+                    File.WriteAllBytes(saveFileDialog.FileName, stream.ToArray());
+                }
+
+                // Ouvrir le fichier PDF avec le programme par défaut
+                Process.Start(new ProcessStartInfo(saveFileDialog.FileName) { UseShellExecute = true });
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BornePaiement.Model
             {
                 APIClient = new HttpClient
                 {
-                    BaseAddress = new Uri("https://localhost:7185/api/")
+                    BaseAddress = new Uri("https://localhost:5000/api/")
                 };
                 APIClient.DefaultRequestHeaders.Accept.Clear();
                 APIClient.DefaultRequestHeaders.Add("ApiKey", "CLE_API_BORNE_PAIEMENT"); // Clé API spécifique à BornePaiement

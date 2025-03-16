@@ -14,6 +14,10 @@ using System.Windows.Shapes;
 using BornePaiement.ViewModel;
 using System.Windows.Media.Animation;
 using BornePaiement.View;
+using BornePaiement.Resources;
+using System.Globalization;
+using System.ComponentModel;
+using System.Configuration;
 
 namespace BornePaiement.View
 {
@@ -23,10 +27,55 @@ namespace BornePaiement.View
     public partial class BornePaiementView : Window
     {
         private StringBuilder _scanBuffer = new StringBuilder(); // Buffeur pour collecter les données du scan
+
+        /// <summary>
+        /// Langue actuelle de l'application.
+        /// </summary>
+        private string _language;
+
+        /// <summary>
+        /// Obtient ou définit la langue de l'application; Met à jour les ressources linguistiques et recharge les labels.
+        /// </summary>
+        public string Language
+        {
+            get { return _language; }
+            set
+            {
+                if (_language != value)
+                {
+                    _language = value;
+                    OnPropertyChanged(nameof(Language));
+                    Resource.Culture = new CultureInfo(value);
+                    LoadLabels(); //à chaque chargement de langue on charge les labels directement
+
+                }
+            }
+        }
+
+        NumPadPopup numPadPopup;
+        AbonnementPopup abonnementPopup;
+
         public BornePaiementView()
         {
             InitializeComponent();
             this.DataContext = new BornePaiementVM();
+
+            numPadPopup = new NumPadPopup();
+
+            if(this.DataContext is BornePaiementVM vm)
+            {
+                abonnementPopup = new AbonnementPopup(vm.ticketScanne);
+            }
+           
+
+            //Direct à l'ouverture de la fenêtre !
+            RessourceHelper.SetInitialLanguage();
+
+            Language = ConfigurationManager.AppSettings["language"];
+            SelectLanguage();
+
+            //C'est apres tout ceci qu'on Load les labels
+            LoadLabels();
         }
 
         private void HiddenScannerInput_KeyDown(object sender, KeyEventArgs e)
@@ -73,6 +122,97 @@ namespace BornePaiement.View
                 else if (e.Key >= Key.A && e.Key <= Key.Z) // Lettres de A à Z
                 {
                     _scanBuffer.Append(e.Key.ToString()); // Conserver la lettre telle quelle
+                }
+            }
+        }
+
+
+        /// <summary>
+        ///Sélectionne automatiquement la langue configurée dans `App.Config` au démarrage de l'application.
+        /// </summary>
+        private void SelectLanguage()
+        {
+            string lang = ConfigurationManager.AppSettings["language"];
+
+            foreach (ComboBoxItem item in languageComboBox.Items)
+            {
+                if (item.Tag is string tag && tag == lang)
+                {
+                    languageComboBox.SelectedItem = item;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Charge les labels et met à jour leur texte en fonction de la langue sélectionnée.
+        /// </summary>
+        private void LoadLabels()
+        {
+            label_PayementStation.Content = Resource.PayementStation;
+            label_PayementStation1.Title = Resource.PayementStation;
+            label_Language.Content = Resource.Language;
+            label_ScanningInstructions.Text = Resource.ScanningInstructions;  
+            label_SimulatePayment.Content = Resource.SimulatePayment;
+            label_Subscribe.Content = Resource.Subscribe;
+            label_GenerateReceipt.Content = Resource.GenerateReceipt; 
+            label_ValidTicket.Content = Resource.ValidTicket;
+            label_InValidTicket.Content = Resource.InvalidTicket;
+
+            //Charge aussi les labels des autres pages
+            numPadPopup.LoadLabels();
+            abonnementPopup.loadLabels();
+
+
+
+        }
+
+        /// <summary>
+        /// Événement permettant de notifier un changement de propriété.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Notifie un changement de propriété pour la mise à jour de l'interface.
+        /// </summary>
+        /// <param name="propertyName">Nom de la propriété modifiée</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+        //Le code de la fonction suivante n'est pas de moi à 100%...source: ChatGPT
+        /// <summary>
+        ///cette fonction met à jour la langue de l'application en fonction de la sélection de l'utilisateur dans le ComboBox
+        /// </summary>
+        /// <param name="sender">Objet source de l'événement</param>
+        /// <param name="e">Arguments de l'événement</param>
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (languageComboBox.SelectedItem is ComboBoxItem selectedItem)
+            {
+                if (selectedItem.Tag is string selectedLanguage)
+                {
+                    // Affectation propre sans provoquer d'exception
+                    _language = selectedLanguage;
+                    OnPropertyChanged(nameof(Language));
+
+                    // Mise à jour des ressources linguistiques
+                    Resource.Culture = new CultureInfo(selectedLanguage);
+                    LoadLabels();
+
+                    if(this.DataContext is BornePaiementVM vM)
+                    {
+                        vM.UpdateTicketInfo();
+                    }
+
+
+                    // Enregistre la langue sélectionnée dans les paramètres de configuration
+                    System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    config.AppSettings.Settings["language"].Value = selectedLanguage;
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
                 }
             }
         }

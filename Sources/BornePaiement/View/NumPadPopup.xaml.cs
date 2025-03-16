@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using BornePaiement.Resources;
 
 namespace BornePaiement.View
 {
@@ -12,6 +13,9 @@ namespace BornePaiement.View
         public NumPadPopup()
         {
             InitializeComponent();
+
+
+            LoadLabels();
         }
 
         private void NumPad_Click(object sender, RoutedEventArgs e)
@@ -39,7 +43,12 @@ namespace BornePaiement.View
             }
             else
             {
-                MessageBox.Show("❌ NIP incorrect. Veuillez réessayer.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                        Resource.IncorrectPIN,
+                        Resource.ErrorTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
                 PinBox.Password = ""; // Réinitialiser la saisie
             }
         }
@@ -48,5 +57,13 @@ namespace BornePaiement.View
         {
             DialogResult = false;
         }
+
+        public void LoadLabels()
+        {
+            label_EnterYourPIN.Title = Resource.EnterYourPIN;
+            label_EnterYourPIN1.Content = Resource.EnterYourPIN;
+            label_Cancel.Content = Resource.Cancel; 
+        }
     }
 }
+

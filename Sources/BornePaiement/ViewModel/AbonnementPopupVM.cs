@@ -16,6 +16,9 @@ using System.Drawing;
 using ZXing.Common;
 using ZXing;
 using BornePaiement.View;
+using BornePaiement.Helpers;
+using BornePaiement.Resources;
+using Microsoft.Win32;
 
 namespace BornePaiement.ViewModel
 {
@@ -75,7 +78,23 @@ namespace BornePaiement.ViewModel
         {
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(TypeAbonnement))
             {
-                MessageBox.Show("Veuillez entrer votre email et sélectionner un type d'abonnement.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(
+                        Resource.EnterEmailAndSelectSubscription,
+                        Resource.ErrorTitle,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error
+                );      
+                return;
+            }
+
+            if(!EmailHelper.IsValidEmail(Email))
+            {
+                MessageBox.Show(
+                          Resource.InvalidEmailFormat,
+                          Resource.ErrorTitle,
+                          MessageBoxButton.OK,
+                          MessageBoxImage.Error
+                      );
                 return;
             }
 
@@ -89,7 +108,16 @@ namespace BornePaiement.ViewModel
 
                 if (success)
                 {
-                    MessageBox.Show($"Abonnement souscrit avec succès !\nType : {abonnement.TypeAbonnement}\nDate de début : {abonnement.DateDebut:dd/MM/yyyy}\nDate de fin : {abonnement.DateFin:dd/MM/yyyy}\nMontant : {abonnement.MontantPaye:C}", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(
+                            string.Format(Resource.SubscriptionSuccess,
+                                abonnement.TypeAbonnement,
+                                abonnement.DateDebut,
+                                abonnement.DateFin,
+                                abonnement.MontantPaye),
+                            Resource.SuccessTitle,
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information
+                        );
 
                     PeutAfficherBoutonGenerer = true;
                     PeutSimuler = false;
@@ -109,12 +137,17 @@ namespace BornePaiement.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show($"Erreur lors de la souscription : {message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(
+                            string.Format(Resource.SubscriptionError, message),
+                            Resource.ErrorTitle,
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error
+                        );
                 }
             }
             else
             {
-                MessageBox.Show("❌ NIP incorrect. Veuillez réessayer.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                
             }
         }
 
@@ -145,17 +178,6 @@ namespace BornePaiement.ViewModel
         }
 
 
-        //private XImage ConvertBitmapToXImage(Bitmap bitmap)
-        //{
-        //    using (MemoryStream memory = new MemoryStream())
-        //    {
-        //        bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
-        //        memory.Position = 0;
-        //        return XImage.FromStream(memory);
-        //    }
-        //}
-
-
         private BitmapImage ConvertBitmapToBitmapImage(Bitmap bitmap)
         {
             using (MemoryStream memory = new MemoryStream())
@@ -174,12 +196,6 @@ namespace BornePaiement.ViewModel
 
         private void GenererTicketAbonnement()
         {
-            // Vérifier si les informations nécessaires sont disponibles
-            if (string.IsNullOrEmpty(TypeAbonnement) || dateDebut == null || dateFin == null)
-            {
-                MessageBox.Show("Les informations de l'abonnement sont incomplètes.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
             // Chemin de sauvegarde du PDF
             string pdfSavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "TicketsAbonnement");
@@ -192,8 +208,11 @@ namespace BornePaiement.ViewModel
             string pdfFilePath = Path.Combine(PdfSavePath, $"Abonnement_{abonnementId}.pdf");
 
             // Créer le document PDF
-            using (PdfDocument document = new PdfDocument())
-            {
+            using (MemoryStream stream = new MemoryStream())
+            {  
+
+                PdfDocument document = new PdfDocument();
+
                 // Ajouter une page au document
                 PdfPage page = document.AddPage();
                 page.Width = XUnit.FromMillimeter(80); // Format ticket (80 mm de largeur)
@@ -239,13 +258,27 @@ namespace BornePaiement.ViewModel
                 // Message de remerciement
                 gfx.DrawString("Merci pour votre confiance !", fontNormal, XBrushes.DarkGreen, new XPoint((page.Width.Point - gfx.MeasureString("Merci pour votre confiance !", fontNormal).Width) / 2, 330));
 
-                // Sauvegarder le document
-                document.Save(pdfFilePath);
+                // Sauvegarder le document dans le MemoryStream
+                document.Save(stream, false);
+
+                // Proposer à l'utilisateur de sauvegarder le fichier
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Fichiers PDF (*.pdf)|*.pdf", // Filtre pour les fichiers PDF
+                    FileName = $"Rapport_{dateDebut:yyyyMMdd}_{dateFin:yyyyMMdd}.pdf", // Nom par défaut du fichier
+                    Title = "Enregistrer le rapport PDF" // Titre de la boîte de dialogue
+                };
+
+                if (saveFileDialog.ShowDialog() == true) // Si l'utilisateur clique sur "Enregistrer"
+                {
+                    // Écrire le PDF dans le fichier sélectionné
+                    File.WriteAllBytes(saveFileDialog.FileName, stream.ToArray());
+
+                    // Ouvrir le fichier PDF avec le programme par défaut
+                    Process.Start(new ProcessStartInfo(saveFileDialog.FileName) { UseShellExecute = true });
+                }
             }
 
-            // Ouvrir le PDF généré
-            Process.Start(new ProcessStartInfo(pdfFilePath) { UseShellExecute = true });
-            MessageBox.Show("Ticket d'abonnement généré avec succès !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
