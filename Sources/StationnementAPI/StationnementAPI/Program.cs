@@ -12,7 +12,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.ListenAnyIP(5001); // HTTP
     serverOptions.ListenAnyIP(5000, listenOptions => // HTTPS
     {
-        listenOptions.UseHttps();
+        listenOptions.UseHttps("C:\\Windows\\System32\\nelson_certificat.pfx", "admin");
     });
 });
 

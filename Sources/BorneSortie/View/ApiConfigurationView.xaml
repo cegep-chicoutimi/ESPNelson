@@ -1,0 +1,12 @@
+﻿<Window x:Class="BorneSortie.View.ApiConfigurationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Configuration de l'API" Height="200" Width="400">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+        <TextBlock Text="Veuillez entrer l'URL de l'API :" Margin="0 0 0 10"/>
+        <!-- Lier la TextBox à la propriété ApiUrl du ViewModel -->
+        <TextBox x:Name="ApiUrlTextBox" Width="300" Margin="0 0 0 20" Text="{Binding ApiUrl, UpdateSourceTrigger=PropertyChanged}"/>
+        <!-- Bouton avec gestionnaire d'événements -->
+        <Button Content="Valider" Click="Button_Click" Width="100" Height="30"/>
+    </StackPanel>
+</Window>

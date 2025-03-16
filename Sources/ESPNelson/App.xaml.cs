@@ -1,5 +1,8 @@
-﻿using System.Configuration;
+﻿using ESPNelson.Model;
+using ESPNelson.View;
+using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
@@ -22,8 +25,20 @@ namespace ESPNelson
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            AllocConsole(); // Attacher une console
+            AllocConsole(); // Attacher une console (pour le débogage)
+
+            // Activer les messages de débogage pour le binding
+            PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.All;
+            PresentationTraceSources.DataBindingSource.Listeners.Add(new ConsoleTraceListener());
+
             base.OnStartup(e);
+
+            
+                // Afficher la fenêtre de configuration
+            var configWindow = new ApiConfigurationView();
+            configWindow.ShowDialog();
+                
+               
         }
 
         private void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

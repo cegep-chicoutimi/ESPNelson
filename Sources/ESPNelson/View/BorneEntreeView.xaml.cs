@@ -8,6 +8,7 @@ using System.Configuration;
 using System.ComponentModel;
 using ESPNelson.Model;
 
+
 namespace ESPNelson.View
 {
     public partial class BorneEntreeView : Window

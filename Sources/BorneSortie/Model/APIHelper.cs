@@ -26,10 +26,19 @@ namespace BorneSortie.Model
         {
             if (APIClient == null)
             {
+                // Charger l'URL de l'API depuis le fichier de configuration
+                var apiUrl = ConfigurationHelper.LoadApiUrl();
+                if (string.IsNullOrWhiteSpace(apiUrl))
+                {
+                    throw new InvalidOperationException("L'URL de l'API n'est pas configurée.");
+                }
+
                 APIClient = new HttpClient
                 {
-                    BaseAddress = new Uri("https://localhost:7185/api/")
+                    BaseAddress = new Uri(apiUrl)
                 };
+
+
                 APIClient.DefaultRequestHeaders.Accept.Clear();
                 APIClient.DefaultRequestHeaders.Add("ApiKey", "CLE_API_BORNE_SORTIE"); // Clé API spécifique à BornePaiement
                 APIClient.DefaultRequestHeaders.Add("X-Client-Type", "BorneSortie");

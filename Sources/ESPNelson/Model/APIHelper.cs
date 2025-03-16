@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 
 namespace ESPNelson.Model
 {
-
     /// <summary>
     /// Classe permettant d'initialiser un client HTTP pour interagir avec l'API de stationnement.
     /// </summary>
@@ -20,7 +19,7 @@ namespace ESPNelson.Model
         /// </summary>
         static APIHelper()
         {
-            InitializeClient(); 
+            InitializeClient();
         }
 
         /// <summary>
@@ -30,13 +29,20 @@ namespace ESPNelson.Model
         {
             if (APIClient == null)
             {
+                // Charger l'URL de l'API depuis le fichier de configuration
+                var apiUrl = ConfigurationHelper.LoadApiUrl();
+                if (string.IsNullOrWhiteSpace(apiUrl))
+                {
+                    throw new InvalidOperationException("L'URL de l'API n'est pas configurée.");
+                }
+
+                // Initialiser le client HTTP avec l'URL de base
                 APIClient = new HttpClient
                 {
-                    BaseAddress = new Uri("https://localhost:5000/api/")
+                    BaseAddress = new Uri(apiUrl)
                 };
                 APIClient.DefaultRequestHeaders.Accept.Clear();
 
-                //Ajout de l'APIKey + Identifiant du programme
                 APIClient.DefaultRequestHeaders.Add("ApiKey", "CLE_API_BORNE_ENTREE");
                 APIClient.DefaultRequestHeaders.Add("X-Client-Type", "BorneEntree");
                 APIClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
