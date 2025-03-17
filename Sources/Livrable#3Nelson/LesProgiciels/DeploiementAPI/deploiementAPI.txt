@@ -1,5 +1,0 @@
-Le déploiement de l'API a été fait via le service en ligne Render...
-
-Utilisation: Pour chaque application qui communique avec l'API au démarrage il faudrait préciser l'URL de base noté URLBase.
-
-URLBase = https://deploiementrender-final.onrender.com/api/
