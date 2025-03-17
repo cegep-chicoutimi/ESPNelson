@@ -5,6 +5,7 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>BorneSortie.App</StartupObject>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
